@@ -40,30 +40,22 @@ body{font-family:-apple-system,'Microsoft YaHei',sans-serif;background:#0d1117;c
 #panel-body code{background:#21262d;padding:1px 5px;border-radius:3px;font-size:11px;color:#d2a8ff}
 .tooltip{position:fixed;pointer-events:none;background:rgba(22,27,34,.95);padding:8px 12px;border-radius:6px;border:1px solid #30363d;font-size:12px;display:none;z-index:10}
 @media(max-width:768px){
-  body{overflow:hidden}
-  #graph{width:100vw;height:100vh}
-  #info{top:6px;left:6px;right:6px;padding:6px 10px;font-size:10px;border-radius:4px;max-width:none}
-  #info h1{font-size:12px;margin-bottom:2px}
-  #info p{font-size:9px}
+  #info{display:none}
   #legend{display:none}
-  #panel{position:fixed;top:0;left:0;right:0;bottom:0;width:100%;height:100%;box-shadow:none;border:none;z-index:100}
-  #panel-header{padding:10px 14px;gap:10px;background:#161b22}
-  #panel-header h2{font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;min-width:0}
-  #panel-close{width:40px;height:40px;font-size:22px;border-radius:50%;flex-shrink:0;border:1px solid #30363d}
-  #panel-body{padding:16px;overflow-x:hidden;word-break:break-word}
-  #panel-body *{max-width:100%;box-sizing:border-box}
-  #panel-body h1{font-size:17px;margin:10px 0 8px;padding-bottom:6px}
-  #panel-body h2{font-size:14px;margin:14px 0 6px}
-  #panel-body h3{font-size:12px;margin:10px 0 5px}
+  #panel{position:fixed;top:0;left:0;width:100vw;height:100vh;box-shadow:none;border:none;z-index:100;overflow-y:auto;-webkit-overflow-scrolling:touch}
+  #panel-header{position:sticky;top:0;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;background:#161b22;border-bottom:1px solid #30363d;z-index:5}
+  #panel-header h2{font-size:13px;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-right:10px}
+  #panel-close{width:40px;height:40px;min-width:40px;font-size:22px;border-radius:50%;flex-shrink:0;border:1px solid #30363d;display:flex;align-items:center;justify-content:center;cursor:pointer;background:none;color:#8b949e}
+  #panel-body{padding:12px 16px;overflow-x:hidden}
+  #panel-body h1{font-size:17px;margin:8px 0 6px;padding-bottom:6px;border-bottom:2px solid #30363d}
+  #panel-body h2{font-size:14px;margin:12px 0 6px;border-bottom:1px solid #21262d;padding-bottom:3px}
+  #panel-body h3{font-size:12px;margin:10px 0 4px}
   #panel-body p,#panel-body li{font-size:13px;line-height:1.8}
-  #panel-body table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch;font-size:11px;margin:8px -16px;padding:0 16px;width:calc(100% + 32px)}
-  #panel-body th,#panel-body td{padding:5px 7px;white-space:nowrap;font-size:11px}
-  #panel-body th:first-child,#panel-body td:first-child{position:sticky;left:0;background:#21262d;z-index:1;font-weight:600}
-  #panel-body tr:nth-child(even) td:first-child{background:rgba(48,54,61,.3)}
-  #panel-body blockquote{border-left-width:3px;padding:4px 10px;margin:6px 0;font-size:12px}
-  #panel-body hr{margin:10px 0}
+  #panel-body table{font-size:11px;margin:6px 0}
+  #panel-body th,#panel-body td{padding:4px 6px;font-size:11px}
+  #panel-body blockquote{border-left:3px solid #d29922;padding:4px 10px;margin:6px 0;font-size:12px}
   #panel-body pre{font-size:10px;padding:8px}
-  #panel-body pre code{font-size:10px}
+  #panel-body hr{margin:10px 0}
   .tooltip{display:none!important}
 }
 </style>
