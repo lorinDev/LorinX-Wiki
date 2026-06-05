@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>先秦知识图谱 · 37节点 · Wiki History</title>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>先秦知识图谱 · 54节点 · Wiki History</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:-apple-system,'Microsoft YaHei',sans-serif;background:#0d1117;color:#c9d1d9;overflow:hidden}
 #graph{width:100vw;height:100vh}
 #info{position:fixed;top:16px;left:16px;background:rgba(22,27,34,.92);padding:14px 18px;border-radius:8px;border:1px solid #30363d;font-size:13px;z-index:1}
 #info h1{font-size:15px;color:#d29922;margin-bottom:4px}
-#legend{position:fixed;bottom:16px;left:16px;background:rgba(22,27,34,.92);padding:10px 14px;border-radius:8px;border:1px solid #30363d;font-size:11px;z-index:1;display:flex;flex-wrap:wrap;gap:6px 12px;max-width:520px}
-.leg{display:flex;align-items:center;gap:5px}
+#info p{font-size:11px;color:#8b949e}
+#legend{position:fixed;bottom:16px;left:16px;background:rgba(22,27,34,.92);padding:10px 14px;border-radius:8px;border:1px solid #30363d;font-size:10px;z-index:1;display:flex;flex-wrap:wrap;gap:4px 10px;max-width:600px}
+.leg{display:flex;align-items:center;gap:4px}
 .leg span{width:10px;height:10px;border-radius:50%;display:inline-block;flex-shrink:0}
-.tooltip{position:fixed;pointer-events:none;background:rgba(22,27,34,.95);padding:8px 12px;border-radius:6px;border:1px solid #30363d;font-size:12px;display:none;z-index:10}
 #panel{position:fixed;top:0;right:0;width:460px;height:100vh;background:#161b22;border-left:1px solid #30363d;overflow-y:auto;z-index:20;display:none;box-shadow:-4px 0 24px rgba(0,0,0,.5)}
 #panel.show{display:block}
 #panel-header{position:sticky;top:0;background:#161b22;border-bottom:1px solid #30363d;padding:14px 18px;display:flex;justify-content:space-between;align-items:center}
@@ -30,117 +30,149 @@ body{font-family:-apple-system,'Microsoft YaHei',sans-serif;background:#0d1117;c
 #panel-body th{background:#21262d;padding:4px 7px;text-align:left;font-weight:600;color:#58a6ff;border:1px solid #30363d}
 #panel-body td{padding:4px 7px;border:1px solid #30363d;vertical-align:top}
 #panel-body tr:nth-child(even){background:rgba(48,54,61,.3)}
-#panel-body code{background:#21262d;padding:1px 5px;border-radius:3px;font-size:11px;color:#d2a8ff}
-#panel-body pre{background:#0d1117;border:1px solid #30363d;border-radius:5px;padding:8px;overflow-x:auto;margin:5px 0;font-size:11px}
-#panel-body pre code{background:none;padding:0;color:#c9d1d9}
 #panel-body blockquote{border-left:3px solid #d29922;padding:3px 10px;margin:5px 0;color:#8b949e;font-size:12px}
-#panel-body hr{border:none;border-top:1px solid #21262d;margin:12px 0}
+.tooltip{position:fixed;pointer-events:none;background:rgba(22,27,34,.95);padding:8px 12px;border-radius:6px;border:1px solid #30363d;font-size:12px;display:none;z-index:10}
 </style>
 </head>
 <body>
-<div id="graph"></div>
-<div id="info"><h1>🏛️ 先秦知识图谱 · 37节点</h1><p>🟡 四公子 + 韩赵魏 · 点击查看详情</p></div>
-<div id="legend">
-  <div class="leg"><span style="background:#3fb950"></span> 朝代 (5)</div>
-  <div class="leg"><span style="background:#39d353"></span> 诸侯国 (10)</div>
-  <div class="leg"><span style="background:#d29922"></span> 四公子 (4) NEW</div>
-  <div class="leg"><span style="background:#58a6ff"></span> 思想家 (3)</div>
-  <div class="leg"><span style="background:#bc8cff"></span> 概念 (4)</div>
-  <div class="leg"><span style="background:#f0883e"></span> 时间线 (1)</div>
-  <div class="leg"><span style="background:#30363d"></span> 待建设</div>
-</div>
-<div class="tooltip" id="tooltip"></div>
-<div id="panel"><div id="panel-header"><h2 id="panel-title"></h2><button id="panel-close" onclick="closePanel()">✕</button></div><div id="panel-body"></div></div>
+<div id=graph></div>
+<div id=info><h1>🏛️ 先秦知识图谱 · 54节点</h1><p>🟢 朝代 | 🟡 四公子 | 🔵 诸子 | 🟠 改革 | 🔴 军事 | 🟣 概念 | 点击查看详情</p></div>
+<div id=legend><div class=leg><span style=background:#3fb950></span>朝代(5)</div><div class=leg><span style=background:#39d353></span>诸侯国(11)</div><div class=leg><span style=background:#d29922></span>四公子(4)</div><div class=leg><span style=background:#58a6ff></span>思想家(6)</div><div class=leg><span style=background:#f0883e></span>改革家(4)</div><div class=leg><span style=background:#f85149></span>军事(2)</div><div class=leg><span style=background:#ff7b72></span>帝王</div><div class=leg><span style=background:#d2a8ff></span>文人</div><div class=leg><span style=background:#db6d28></span>战役(2)</div><div class=leg><span style=background:#bc8cff></span>概念(7)</div><div class=leg><span style=background:#f0883e></span>时间线</div><div class=leg><span style=background:#30363d></span>待建设</div></div>
+<div class=tooltip id=tooltip></div>
+<div id=panel><div id=panel-header><h2 id=panel-title></h2><button id=panel-close onclick=closePanel()>✕</button></div><div id=panel-body></div></div>
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <script>
 var C={};
-C["xia-dynasty"]="<h1>夏朝</h1><p>中国第一个世袭王朝,约2070–1600 BCE。</p><table><tr><th>人物</th><th>事迹</th></tr><tr><td>大禹</td><td>治水·九州</td></tr><tr><td>启</td><td>世袭制开始</td></tr><tr><td>桀</td><td>暴君·被商灭</td></tr></table>";
-C["shang-dynasty"]="<h1>商朝</h1><p>第一个文字证实的王朝(~1600–1046 BCE)。</p><ol><li><b>甲骨文</b>—最早汉字(~1250 BCE)</li><li><b>青铜器</b>—司母戊鼎832kg</li><li><b>祖先崇拜</b>—人殉制度</li></ol>";
-C["zhou-dynasty"]="<h1>周朝</h1><p>最长王朝(1046–256 BCE,790年)。</p><h3>天命观</h3><blockquote>天命靡常,以德配天</blockquote><h3>封建制</h3><p>天子→诸侯→卿大夫→士</p><p>前771犬戎破镐京→东周始</p>";
-C["spring-autumn"]="<h1>春秋</h1><p>770–476 BCE·五霸争雄。</p><table><tr><th>霸主</th><th>国</th><th>事迹</th></tr><tr><td>齐桓公</td><td>齐</td><td>首霸</td></tr><tr><td>晋文公</td><td>晋</td><td>城濮之战</td></tr><tr><td>楚庄王</td><td>楚</td><td>问鼎中原</td></tr><tr><td>阖闾</td><td>吴</td><td>破楚</td></tr><tr><td>勾践</td><td>越</td><td>卧薪尝胆</td></tr></table>";
-C["warring-states"]="<h1>战国</h1><p>476–221 BCE·七雄·变法·统一</p><table><tr><th>变法</th><th>国</th></tr><tr><td>商鞅</td><td>秦(最彻底)</td></tr><tr><td>李悝</td><td>魏(最早)</td></tr></table><p><b>长平之战(260 BCE):白起坑杀40万</b></p><p>前221:秦统一·先秦终</p>";
-C["confucius"]="<h1>孔子</h1><p>前551–479·鲁国·儒家创始人</p><blockquote>己所不欲,勿施于人</blockquote><p>仁·礼·弟子三千·《论语》·影响东亚两千年</p>";
-C["laozi"]="<h1>老子</h1><p>李耳·道家创始人·《道德经》</p><blockquote>道可道,非常道</blockquote><p>道·无为·辩证·柔弱胜刚强</p>";
-C["sun-tzu"]="<h1>孙子</h1><p>孙武·兵家鼻祖</p><h3>兵法13篇</h3><table><tr><td>1始计</td><td>2作战</td><td>3谋攻</td></tr><tr><td>五事七计</td><td>速战速决</td><td>不战屈人</td></tr></table><blockquote>知彼知己,百战不殆</blockquote>";
-C["mandate-heaven"]="<h1>天命观</h1><table><tr><th>原则</th><th>含义</th></tr><tr><td>天命靡常</td><td>天命不固定</td></tr><tr><td>以德配天</td><td>有德才配</td></tr></table><blockquote>皇天无亲,惟德是辅</blockquote>";
-C["feudal-system"]="<h1>封建制</h1><p>封土建国·天子→诸侯→卿大夫→士</p><h3>vs 欧洲</h3><table><tr><th></th><th>周</th><th>欧洲</th></tr><tr><td>纽带</td><td>血缘+契约</td><td>契约</td></tr></table><p>春秋松动→商鞅废→秦郡县制</p>";
-C["bronze-age"]="<h1>青铜文明</h1><p><b>以礼器为核心</b></p><table><tr><th>器物</th><th>特色</th></tr><tr><td>司母戊鼎</td><td>832kg</td></tr><tr><td>毛公鼎</td><td>铭文499字</td></tr><tr><td>曾侯乙编钟</td><td>65件</td></tr></table><blockquote>国之大事,在祀与戎</blockquote>";
-C["hundred-schools"]="<h1>诸子百家</h1><table><tr><th>学派</th><th>创始</th><th>后世</th></tr><tr><td>儒</td><td>孔子</td><td>正统</td></tr><tr><td>道</td><td>老子</td><td>互补</td></tr><tr><td>墨</td><td>墨子</td><td>衰落</td></tr><tr><td>法</td><td>韩非</td><td>外儒内法</td></tr></table>";
-C["timeline"]="<h1>先秦大事年表</h1><p><b>夏:</b>~2070BCE · <b>商:</b>~1600–1046 · <b>周:</b>1046–256</p><p><b>春秋:</b>770–476(孔子551–479)</p><p><b>战国:</b>476–221 · 商鞅356 · 长平260</p><p><b>前221:秦统一·先秦终</b></p>";
-C["state-qi"]="<h1>齐</h1><p>姜太公封国·临淄·春秋首霸</p><h3>管仲改革</h3><table><tr><th>领域</th><th>内容</th></tr><tr><td>经济</td><td>官山海·盐铁专营</td></tr><tr><td>外交</td><td><b>尊王攘夷</b></td></tr></table><p>齐桓公·召陵之盟·稷下学宫·田氏代齐</p>";
-C["state-jin"]="<h1>晋</h1><p>姬姓·表里山河·晋文公称霸</p><h3>三家分晋</h3><p>六卿→四卿→<b>前453韩赵魏灭智氏</b><br>前403:周册命三晋为诸侯(<b>战国开端</b>)</p><blockquote>司马光以三家分晋为《资治通鉴》开篇</blockquote>";
-C["state-chu"]="<h1>楚</h1><p>南方大国·自称王·疆域最广</p><h3>楚庄王</h3><p>一鸣惊人·<b>问鼎中原</b>·邲之战败晋</p><h3>文化</h3><p>楚辞(屈原《离骚》)·老子为楚人·凤鸟崇拜</p><p>前223被秦灭</p>";
-C["state-qin"]="<h1>秦</h1><p>西陲→统一天下</p><h3>商鞅变法(356 BCE)</h3><p>军功授爵·废井田开阡陌·县制·什伍连坐</p><p><b>统一:</b>前230韩→228赵→225魏→223楚→222燕→<b>前221齐·天下统一</b></p>";
-C["state-lu"]="<h1>鲁</h1><p>周公封国·曲阜·礼乐之邦</p><blockquote>周礼尽在鲁矣</blockquote><p>孔子故里·儒学发源地·三桓专政·前256被楚灭</p>";
-C["state-wu"]="<h1>吴</h1><p>长江下游·姑苏(苏州)</p><p><b>阖闾:</b>用伍子胥·孙武·柏举之战破楚(506 BCE)</p><p><b>夫差:</b>赦勾践·黄池争霸·前473被越灭</p><blockquote>抉吾眼县吴东门之上,以观越寇之入灭吴也——伍子胥</blockquote>";
-C["state-yue"]="<h1>越</h1><p>浙江·会稽(绍兴)</p><p><b>勾践:</b>夫椒之败→入吴为质→<b>卧薪尝胆</b>→前473灭吴</p><p>北上会盟·春秋最后霸主</p><blockquote>长颈鸟喙,可与共患难,不可与共乐</blockquote>";
-// NEW: Han, Zhao, Wei
-C["state-han"]="<h1>韩</h1><p>七雄最弱·都城新郑·前403–前230(173年)</p><h3>劲弩</h3><blockquote>天下之强弓劲弩皆从韩出</blockquote><p>宜阳铁冶·军工立国</p><h3>申不害变法</h3><p>法家<b>术</b>派·君主驾驭群臣<br>韩昭侯时15年无外患·人亡政息</p><h3>韩非</h3><p>韩国公子·法家集大成·秦王叹服</p><h3>郑国渠</h3><p>派水工郑国入秦修渠→欲疲秦,反使秦更强</p><p><b>前230:第一个被秦灭亡</b></p>";
-C["state-zhao"]="<h1>赵</h1><p>三家分晋·都邯郸·前403–前228(175年)</p><h3>胡服骑射(前307)</h3><p>赵武灵王·骑射改革·灭中山·拓地至内蒙古</p><p>壮年退位→沙丘之乱→饿死三月</p><h3>鼎盛</h3><p>蔺相如<b>完璧归赵</b>·廉颇<b>负荆请罪</b>·将相和<br>阏与之战赵奢大败秦军</p><h3>长平之战(前260)</h3><p>赵括纸上谈兵→白起<b>坑杀40万</b><br>赵氏壮者皆尽长平</p><h3>李牧</h3><p>大破匈奴·御秦铁壁·被反间计冤杀<br><b>前228:邯郸破,赵亡</b></p>";
-C["state-wei"]="<h1>魏</h1><p>三家分晋·战国<b>首霸</b>·都大梁(开封)·前403–前225(178年)</p><h3>李悝变法(最早)</h3><p>废世卿世禄·《法经》首部成文法典·平籴法</p><h3>吴起·魏武卒</h3><p>精兵重甲·大战76全胜64·阴晋5万破秦50万</p><h3>转折</h3><p>桂陵之战(围魏救赵)+<b>马陵之战</b>(庞涓死此树下)→霸权崩塌</p><h3>人才流失</h3><p>商鞅→秦·孙膑→齐·张仪→秦·范雎→秦·吴起→楚<br>魏产才而秦用之</p><h3>信陵君</h3><p>前247五国联军败秦→回光返照</p><p><b>前225:王贲引黄河水灌大梁·魏亡</b></p>";
+  C["xia-dynasty"]="<h1>夏朝</h1><p>约2070–1600 BCE·第一个世袭王朝</p><table><tr><th>人物</th><th>事迹</th></tr><tr><td>大禹</td><td>治水·九州</td></tr><tr><td>启</td><td>世袭制开始</td></tr><tr><td>桀</td><td>暴君·被商灭</td></tr></table>";
+  C["shang-dynasty"]="<h1>商朝</h1><p>~1600–1046 BCE·第一个文字证实的王朝</p><ol><li><b>甲骨文</b>—最早汉字(~1250 BCE)</li><li><b>青铜器</b>—司母戊鼎832kg</li><li><b>祖先崇拜</b>—人殉</li></ol>";
+  C["zhou-dynasty"]="<h1>周朝</h1><p>1046–256 BCE·790年·最长王朝</p><h3>天命观</h3><blockquote>天命靡常,以德配天</blockquote><h3>封建制</h3><p>天子→诸侯→卿大夫→士</p><p>前771犬戎破镐京→东周始</p>";
+  C["spring-autumn"]="<h1>春秋</h1><p>770–476 BCE·五霸争雄</p><table><tr><th>霸主</th><th>国</th></tr><tr><td>齐桓公</td><td>齐(首霸)</td></tr><tr><td>晋文公</td><td>晋(城濮)</td></tr><tr><td>楚庄王</td><td>楚(问鼎)</td></tr><tr><td>阖闾</td><td>吴(破楚)</td></tr><tr><td>勾践</td><td>越(卧薪)</td></tr></table>";
+  C["warring-states"]="<h1>战国</h1><p>476–221 BCE·七雄·变法·统一</p><table><tr><th>变法</th><th>国</th></tr><tr><td>李悝</td><td>魏(最早)</td></tr><tr><td>吴起</td><td>楚</td></tr><tr><td>商鞅</td><td>秦(最彻底)</td></tr><tr><td>申不害</td><td>韩(术治)</td></tr></table><p><b>长平之战(260 BCE):白起坑杀40万</b></p>";
+  C["state-qi"]="<h1>齐</h1><p>姜太公封国·春秋首霸</p><h3>管仲改革</h3><p>官山海·盐铁专营·尊王攘夷</p><p>稷下学宫·田氏代齐·前221被秦灭</p>";
+  C["state-jin"]="<h1>晋</h1><p>姬姓·晋文公称霸·城濮之战</p><h3>三家分晋</h3><p>六卿→四卿→前453韩赵魏灭智氏→前403周册三晋为诸侯</p>";
+  C["state-chu"]="<h1>楚</h1><p>南方大国·疆域最广·自称王</p><h3>楚庄王</h3><p>一鸣惊人·问鼎中原</p><p>楚辞·老子·凤鸟崇拜·前223被秦灭</p>";
+  C["state-qin"]="<h1>秦</h1><p>西陲→统一天下</p><h3>商鞅变法(356 BCE)</h3><p>军功授爵·废井田·县制·连坐</p><p>前230韩→228赵→225魏→223楚→222燕→<b>前221齐·统一</b></p>";
+  C["state-lu"]="<h1>鲁</h1><p>周公封国·曲阜·礼乐之邦</p><blockquote>周礼尽在鲁矣</blockquote><p>孔子故里·儒学发源地</p>";
+  C["state-wu"]="<h1>吴</h1><p>姑苏·阖闾+孙武伍子胥·柏举破楚(506 BCE)</p><p>夫差赦勾践→黄池争霸→前473被越灭</p>";
+  C["state-yue"]="<h1>越</h1><p>会稽·勾践卧薪尝胆→前473灭吴</p><p>北上会盟·春秋最后霸主</p>";
+  C["state-han"]="<h1>韩</h1><p>七雄最弱·前403–前230</p><h3>劲弩</h3><blockquote>天下之强弓劲弩皆从韩出</blockquote><p>申不害术治·韩非·郑国渠·前230第一个被秦灭</p>";
+  C["state-zhao"]="<h1>赵</h1><p>都邯郸·前403–前228</p><h3>胡服骑射</h3><p>赵武灵王·灭中山</p><h3>长平之战</h3><p>赵括纸上谈兵→白起坑杀40万</p><p>廉颇蔺相如·前228邯郸破</p>";
+  C["state-wei"]="<h1>魏</h1><p>战国首霸·前403–前225</p><h3>李悝变法(最早)</h3><p>《法经》·平籴法</p><h3>吴起·魏武卒</h3><p>阴晋5万破秦50万</p><h3>人才流失</h3><p>商鞅/孙膑/张仪/范雎→秦</p><p>前225王贲水灌大梁·魏亡</p>";
+  C["state-yan"]="<h1>燕</h1><p>召公封国·蓟(北京)·七雄最北</p><h3>燕昭王·黄金台</h3><p>千金买马骨·乐毅破齐</p><h3>荆轲刺秦</h3><blockquote>风萧萧兮易水寒</blockquote><p>前222被秦灭·七雄倒数第二</p>";
+  C["lord-mengchang"]="<h1>孟尝君 田文</h1><p>齐·门客三千</p><h3>🐔 鸡鸣狗盗</h3><p>被囚秦→偷狐白裘→学鸡叫开函谷关逃脱</p><h3>狡兔三窟</h3><p>冯谖焚债券·绝嗣无后</p>";
+  C["lord-xinling"]="<h1>信陵君 魏无忌</h1><p>魏·四公子最贤</p><h3>🔑 窃符救赵</h3><p>如姬盗虎符→朱亥锤杀晋鄙→解邯郸之围</p><p>前247五国败秦→反间计→病酒而卒</p>";
+  C["lord-pingyuan"]="<h1>平原君 赵胜</h1><p>赵武灵王之子</p><h3>毛遂自荐</h3><p>使楚→毛遂按剑→楚出兵救赵</p><p>长平争议·邯郸保卫散家财·善终</p>";
+  C["lord-chunshen"]="<h1>春申君 黄歇</h1><p>楚·唯一非王族四公子</p><h3>开发江东</h3><p>黄歇浦(黄浦江)·上海简称<b>申</b></p><p>前238被李园斩首·灭族</p>";
+  C["confucius"]="<h1>孔子</h1><p>前551–479·鲁·儒家创始人</p><blockquote>己所不欲,勿施于人</blockquote><p>仁·礼·《论语》·弟子三千</p>";
+  C["laozi"]="<h1>老子</h1><p>李耳·道家创始人·《道德经》</p><blockquote>道可道,非常道</blockquote><p>无为·辩证·柔弱胜刚强</p>";
+  C["sun-tzu"]="<h1>孙子</h1><p>孙武·兵家鼻祖·《兵法》十三篇</p><blockquote>知彼知己,百战不殆</blockquote>";
+  C["mozi"]="<h1>墨子</h1><p>墨家创始人·前470–391</p><h3>兼爱非攻</h3><blockquote>兼相爱,交相利</blockquote><p>逻辑学·光学·城防·战国显学→秦汉后衰落</p>";
+  C["zhuangzi"]="<h1>庄子</h1><p>道家·《庄子》</p><blockquote>天地与我并生,万物与我为一</blockquote><p>逍遥游·齐物论·庖丁解牛·与老子并称<b>老庄</b></p>";
+  C["mencius"]="<h1>孟子</h1><p>儒家·前372–289·<b>亚圣</b></p><h3>仁政·性善论</h3><blockquote>民为贵,社稷次之,君为轻</blockquote><p>浩然之气·与孔子并称<b>孔孟</b></p>";
+  C["guan-zhong"]="<h1>管仲</h1><p>齐相·<b>春秋第一改革家</b></p><h3>改革</h3><table><tr><td>官山海</td><td>盐铁专营</td></tr><tr><td>相地衰征</td><td>按地征税</td></tr><tr><td>尊王攘夷</td><td>外交战略</td></tr></table><blockquote>仓廪实则知礼节</blockquote><p>助齐桓公首霸</p>";
+  C["shang-yang"]="<h1>商鞅</h1><p>卫国人·入秦变法·前356起</p><h3>变法</h3><p>废井田开阡陌·军功二十等爵·县制·什伍连坐·统一度量衡</p><p>太子犯法→黥其师·前338车裂·但法令保留</p>";
+  C["wu-qi"]="<h1>吴起</h1><p>兵家+法家·卫国人</p><h3>魏国</h3><p>魏武卒·阴晋5万破秦50万</p><h3>楚国</h3><p>悼王变法→悼王死→旧贵族射杀</p>";
+  C["han-fei"]="<h1>韩非</h1><p>韩国公子·<b>法家集大成</b></p><h3>融合三派</h3><p>商鞅<b>法</b>+申不害<b>术</b>+慎到<b>势</b></p><blockquote>儒以文乱法,侠以武犯禁</blockquote><p>秦王叹服→李斯嫉妒→下狱逼死</p>";
+  C["bai-qi"]="<h1>白起</h1><p>秦·<b>战国第一名将·人屠</b></p><h3>战绩</h3><table><tr><td>伊阙</td><td>斩24万</td></tr><tr><td>鄢郢</td><td>水灌数十万</td></tr><tr><td>长平</td><td><b>坑杀40万</b></td></tr></table><p>30年不败·前257赐剑自裁</p><blockquote>长平之战,我诈而尽坑之,是足以死</blockquote>";
+  C["sun-bin"]="<h1>孙膑</h1><p>孙武后代·兵家·齐军师</p><h3>围魏救赵</h3><p>桂陵之战·马陵之战万弩射庞涓</p><blockquote>庞涓死此树下</blockquote><p><b>《孙膑兵法》</b>·战胜而强立</p>";
+  C["qin-shi-huang"]="<h1>秦始皇 嬴政</h1><p>前259–前210·<b>第一个皇帝</b></p><h3>统一(前221)</h3><p>韩赵魏楚燕齐→六王毕,四海一</p><h3>制度</h3><p>皇帝制·郡县制·书同文·车同轨</p><p>焚书坑儒·兵马俑·前210沙丘崩</p>";
+  C["qu-yuan"]="<h1>屈原</h1><p>楚·前340–278·中国第一位诗人</p><h3>楚辞之祖</h3><blockquote>路漫漫其修远兮,吾将上下而求索</blockquote><p>《离骚》《九歌》·遭放逐→秦破郢→<b>投汨罗江</b>→端午节</p>";
+  C["battle-changping"]="<h1>长平之战</h1><p>前260 BCE·秦vs赵·<b>战国最大决战</b></p><p>廉颇固守→赵括纸上谈兵→白起围歼</p><p>赵降→<b>坑杀40万</b>·仅放240少年归</p><p>1995年山西高平发掘尸骨坑·厚达2米</p>";
+  C["battle-maling"]="<h1>马陵之战</h1><p>前341 BCE·齐vs魏</p><p>孙膑<b>减灶计</b>诱庞涓深入→马陵道万弩齐发</p><blockquote>庞涓死此树下</blockquote><p>魏霸权崩塌·战国格局转折</p>";
+  C["mandate-heaven"]="<h1>天命观</h1><table><tr><th>原则</th><td>天命靡常</td><td>以德配天</td></tr></table><blockquote>皇天无亲,惟德是辅</blockquote><p>敬天保民·推翻暴君理论基础</p>";
+  C["feudal-system"]="<h1>封建制</h1><p>天子→诸侯→卿大夫→士</p><h3>vs 欧洲</h3><table><tr><th></th><th>周</th><th>欧洲</th></tr><tr><td>纽带</td><td>血缘+契约</td><td>契约</td></tr></table><p>春秋松动→商鞅废→秦郡县</p>";
+  C["bronze-age"]="<h1>青铜文明</h1><p><b>以礼器为核心</b></p><table><tr><td>司母戊鼎</td><td>832kg</td></tr><tr><td>毛公鼎</td><td>铭文499字</td></tr></table><blockquote>国之大事,在祀与戎</blockquote>";
+  C["hundred-schools"]="<h1>诸子百家</h1><table><tr><th>学派</th><th>创始</th></tr><tr><td>儒</td><td>孔子(仁礼)</td></tr><tr><td>道</td><td>老子(无为)</td></tr><tr><td>墨</td><td>墨子(兼爱)</td></tr><tr><td>法</td><td>韩非(法术势)</td></tr><tr><td>兵</td><td>孙武(兵法)</td></tr></table>";
+  C["commandery-county"]="<h1>郡县制</h1><p><b>中央垂直管理</b>·取代封建</p><table><tr><th>对比</th><th>封建</th><th>郡县</th></tr><tr><td>权力</td><td>世袭</td><td>中央任免</td></tr><tr><td>赋税</td><td>归诸侯</td><td>归中央</td></tr></table><p>商鞅推行→秦始皇推广全国</p>";
+  C["vertical-horizontal"]="<h1>合纵连横</h1><p>战国两大外交战略</p><table><tr><th></th><th>合纵</th><th>连横</th></tr><tr><td>方向</td><td>南北联合</td><td>东西联合</td></tr><tr><td>主导</td><td>苏秦</td><td>张仪</td></tr><tr><td>实质</td><td>六国抗秦</td><td>秦破合纵</td></tr></table><p>连横最终胜出→秦逐一吞并</p>";
+  C["well-field"]="<h1>井田制</h1><p>周代土地制度·九宫格·八家私田+中间公田</p><h3>瓦解</h3><p>铁犁牛耕→私垦→<b>商鞅废井田开阡陌</b>→土地私有</p>";
+  C["goguryeo"]="<h1>高句丽</h1><p>37 BCE–668 CE·朝鲜三国最强</p><h3>广开土王</h3><p>疆域:辽河到汉江</p><h3>隋炀帝三征</h3><p>612年30万→2700人返·隋因此亡</p><p>唐太宗亲征未克·668唐+新罗灭</p>";
+  C["yongle"]="<h1>永乐大典</h1><p>1408·世界最大百科全书</p><p>22,877卷·11,095册·3.7亿字</p><p>收录明以前七八千种古籍</p><p>1900翰林院大火·现存~400册·<b>不足4%</b></p>";
+  C["timeline"]="<h1>先秦大事年表</h1><p><b>夏:</b>~2070 BCE · <b>商:</b>~1600–1046 · <b>周:</b>1046–256</p><p><b>春秋:</b>770–476(孔子551–479)</p><p><b>战国:</b>476–221 · 商鞅356 · 长平260</p><p><b>前221:秦统一·先秦终</b></p>";
 
-// NEW: Four Lords content
-C["lord-mengchang"]="<h1>孟尝君 田文</h1><p>齐国宗室·门客三千</p><h3>🐔 鸡鸣狗盗</h3><p>被囚秦国→门客偷狐白裘→学鸡叫骗开函谷关逃脱</p><h3>🕳️ 狡兔三窟</h3><p>冯谖:焚债券买民心·游说魏王·立宗庙→高枕无忧</p><h3>结局</h3><p>与齐王决裂·诸子争立·<b>绝嗣无后</b></p><blockquote>鸡鸣狗盗之雄耳——苏轼</blockquote>";
-C["lord-xinling"]="<h1>信陵君 魏无忌</h1><p>魏国公子·<b>四公子中最贤</b></p><h3>🔑 窃符救赵</h3><p>侯嬴献计→如姬盗虎符→朱亥锤杀晋鄙→率八万精兵解邯郸之围</p><h3>🏆 五国合纵败秦</h3><p>前247年率五国联军大败秦军于河外</p><h3>结局</h3><p>功高震主·反间计·被夺兵权·<b>病酒而卒</b>(前243)</p><blockquote>魏之德星——司马迁</blockquote>";
-C["lord-pingyuan"]="<h1>平原君 赵胜</h1><p>赵武灵王之子·三任赵相</p><h3>🌿 毛遂自荐</h3><p>出使楚国→毛遂按剑上前→说服楚王出兵救赵</p><h3>⚠️ 长平之战争议</h3><p>力主接受上党→触发长平之战→赵损40万</p><h3>🛡️ 邯郸保卫</h3><p>散家财犒赏士卒→李同率敢死队→邯郸解围</p><p>前251年<b>善终</b></p>";
-C["lord-chunshen"]="<h1>春申君 黄歇</h1><p>楚国令尹·<b>唯一非王族</b>四公子</p><h3>扶立楚王</h3><p>设计让太子逃回楚国继位</p><h3>🏙️ 开发江东</h3><p>封于江东·疏浚黄歇浦(黄浦江)<br>上海简称<b>\"申\"</b>由此而来</p><h3>💀 悲惨结局</h3><p>参与后宫阴谋→李园献妹→<b>前238被斩首</b>·灭族</p><blockquote>当断不断,反受其乱——司马迁</blockquote>";
+var data=JSON.parse('{"nodes": [{"id": "pre-qin", "t": "先秦", "g": "period", "d": "~21C BCE–221 BCE", "x": 60, "y": 50}, {"id": "world", "t": "🌍 世界史", "g": "period", "d": "跨文明", "x": 900, "y": 50}, {"id": "qin-han", "t": "秦汉", "g": "dim", "x": 200, "y": 50}, {"id": "wei-jin", "t": "魏晋", "g": "dim", "x": 320, "y": 50}, {"id": "sui-tang", "t": "隋唐", "g": "dim", "x": 440, "y": 50}, {"id": "song-yuan", "t": "宋元", "g": "dim", "x": 560, "y": 50}, {"id": "ming-qing", "t": "明清", "g": "dim", "x": 680, "y": 50}, {"id": "modern-china", "t": "近现代", "g": "dim", "x": 800, "y": 50}, {"id": "xia-dynasty", "t": "夏朝", "g": "dynasty", "d": "第一个世袭王朝", "x": 30, "y": 120}, {"id": "shang-dynasty", "t": "商朝", "g": "dynasty", "d": "甲骨文·青铜", "x": 140, "y": 120}, {"id": "zhou-dynasty", "t": "周朝", "g": "dynasty", "d": "790年·封建礼乐", "x": 250, "y": 120}, {"id": "spring-autumn", "t": "春秋", "g": "dynasty", "d": "五霸·孔子时代", "x": 90, "y": 200}, {"id": "warring-states", "t": "战国", "g": "dynasty", "d": "七雄·变法·统一", "x": 230, "y": 200}, {"id": "state-qi", "t": "齐", "g": "state", "d": "管仲·首霸·稷下", "x": 10, "y": 290}, {"id": "state-jin", "t": "晋", "g": "state", "d": "城濮·六卿·分晋", "x": 100, "y": 290}, {"id": "state-chu", "t": "楚", "g": "state", "d": "问鼎·楚辞", "x": 190, "y": 290}, {"id": "state-qin", "t": "秦", "g": "state", "d": "商鞅→统一", "x": 280, "y": 290}, {"id": "state-lu", "t": "鲁", "g": "state", "d": "周礼·孔子故里", "x": 370, "y": 290}, {"id": "state-wu", "t": "吴", "g": "state", "d": "孙武·破楚", "x": 460, "y": 290}, {"id": "state-yue", "t": "越", "g": "state", "d": "卧薪尝胆", "x": 550, "y": 290}, {"id": "state-han", "t": "韩", "g": "state", "d": "劲弩·术治·最弱", "x": 50, "y": 370}, {"id": "state-zhao", "t": "赵", "g": "state", "d": "胡服骑射·长平", "x": 150, "y": 370}, {"id": "state-wei", "t": "魏", "g": "state", "d": "首霸·人才流失", "x": 250, "y": 370}, {"id": "state-yan", "t": "燕", "g": "state", "d": "黄金台·荆轲", "x": 370, "y": 370}, {"id": "lord-mengchang", "t": "孟尝君", "g": "lord", "d": "齐·鸡鸣狗盗", "x": 10, "y": 460}, {"id": "lord-xinling", "t": "信陵君", "g": "lord", "d": "魏·窃符救赵", "x": 130, "y": 460}, {"id": "lord-pingyuan", "t": "平原君", "g": "lord", "d": "赵·毛遂自荐", "x": 260, "y": 460}, {"id": "lord-chunshen", "t": "春申君", "g": "lord", "d": "楚·开发江东", "x": 400, "y": 460}, {"id": "confucius", "t": "孔子", "g": "thinker", "d": "儒家创始人", "x": 50, "y": 550}, {"id": "laozi", "t": "老子", "g": "thinker", "d": "道家创始人", "x": 150, "y": 550}, {"id": "sun-tzu", "t": "孙子", "g": "thinker", "d": "兵家鼻祖", "x": 250, "y": 550}, {"id": "mozi", "t": "墨子", "g": "thinker", "d": "兼爱非攻", "x": 50, "y": 620}, {"id": "zhuangzi", "t": "庄子", "g": "thinker", "d": "逍遥游", "x": 150, "y": 620}, {"id": "mencius", "t": "孟子", "g": "thinker", "d": "仁政·亚圣", "x": 250, "y": 620}, {"id": "guan-zhong", "t": "管仲", "g": "reformer", "d": "春秋第一改革", "x": 400, "y": 550}, {"id": "shang-yang", "t": "商鞅", "g": "reformer", "d": "秦变法·车裂", "x": 500, "y": 550}, {"id": "wu-qi", "t": "吴起", "g": "reformer", "d": "魏武卒·楚变法", "x": 400, "y": 620}, {"id": "han-fei", "t": "韩非", "g": "reformer", "d": "法家集大成", "x": 500, "y": 620}, {"id": "bai-qi", "t": "白起", "g": "military", "d": "人屠·坑杀40万", "x": 650, "y": 550}, {"id": "sun-bin", "t": "孙膑", "g": "military", "d": "围魏救赵", "x": 650, "y": 620}, {"id": "qin-shi-huang", "t": "秦始皇", "g": "emperor", "d": "统一六国", "x": 350, "y": 720}, {"id": "qu-yuan", "t": "屈原", "g": "poet", "d": "离骚·端午", "x": 500, "y": 720}, {"id": "battle-changping", "t": "长平之战", "g": "battle", "d": "坑杀40万", "x": 700, "y": 460}, {"id": "battle-maling", "t": "马陵之战", "g": "battle", "d": "庞涓死此", "x": 700, "y": 520}, {"id": "mandate-heaven", "t": "天命观", "g": "concept", "d": "以德配天", "x": 10, "y": 720}, {"id": "feudal-system", "t": "封建制", "g": "concept", "d": "封土建国", "x": 100, "y": 720}, {"id": "well-field", "t": "井田制", "g": "concept", "d": "周代土地", "x": 190, "y": 720}, {"id": "bronze-age", "t": "青铜文明", "g": "concept", "d": "礼器文化", "x": 10, "y": 790}, {"id": "hundred-schools", "t": "诸子百家", "g": "concept", "d": "九流十家", "x": 100, "y": 790}, {"id": "commandery-county", "t": "郡县制", "g": "concept", "d": "取代封建", "x": 190, "y": 790}, {"id": "vertical-horizontal", "t": "合纵连横", "g": "concept", "d": "外交战略", "x": 290, "y": 790}, {"id": "timeline", "t": "⏱ 大事年表", "g": "timeline", "d": "先秦编年", "x": 700, "y": 720}, {"id": "goguryeo", "t": "高句丽", "g": "world", "d": "37 BCE–668", "x": 900, "y": 120}, {"id": "yongle", "t": "永乐大典", "g": "ming-entity", "d": "1408·百科全书", "x": 680, "y": 120}], "links": [{"s": "pre-qin", "t": "xia-dynasty", "type": "", "source": "pre-qin", "target": "xia-dynasty"}, {"s": "pre-qin", "t": "shang-dynasty", "type": "", "source": "pre-qin", "target": "shang-dynasty"}, {"s": "pre-qin", "t": "zhou-dynasty", "type": "", "source": "pre-qin", "target": "zhou-dynasty"}, {"s": "pre-qin", "t": "spring-autumn", "type": "", "source": "pre-qin", "target": "spring-autumn"}, {"s": "pre-qin", "t": "warring-states", "type": "", "source": "pre-qin", "target": "warring-states"}, {"s": "xia-dynasty", "t": "shang-dynasty", "type": "f", "source": "xia-dynasty", "target": "shang-dynasty"}, {"s": "shang-dynasty", "t": "zhou-dynasty", "type": "f", "source": "shang-dynasty", "target": "zhou-dynasty"}, {"s": "zhou-dynasty", "t": "spring-autumn", "type": "f", "source": "zhou-dynasty", "target": "spring-autumn"}, {"s": "zhou-dynasty", "t": "warring-states", "type": "f", "source": "zhou-dynasty", "target": "warring-states"}, {"s": "spring-autumn", "t": "state-qi", "type": "", "source": "spring-autumn", "target": "state-qi"}, {"s": "spring-autumn", "t": "state-jin", "type": "", "source": "spring-autumn", "target": "state-jin"}, {"s": "spring-autumn", "t": "state-chu", "type": "", "source": "spring-autumn", "target": "state-chu"}, {"s": "spring-autumn", "t": "state-qin", "type": "", "source": "spring-autumn", "target": "state-qin"}, {"s": "spring-autumn", "t": "state-lu", "type": "", "source": "spring-autumn", "target": "state-lu"}, {"s": "spring-autumn", "t": "state-wu", "type": "", "source": "spring-autumn", "target": "state-wu"}, {"s": "spring-autumn", "t": "state-yue", "type": "", "source": "spring-autumn", "target": "state-yue"}, {"s": "warring-states", "t": "state-qi", "type": "", "source": "warring-states", "target": "state-qi"}, {"s": "warring-states", "t": "state-qin", "type": "", "source": "warring-states", "target": "state-qin"}, {"s": "warring-states", "t": "state-chu", "type": "", "source": "warring-states", "target": "state-chu"}, {"s": "warring-states", "t": "state-han", "type": "", "source": "warring-states", "target": "state-han"}, {"s": "warring-states", "t": "state-zhao", "type": "", "source": "warring-states", "target": "state-zhao"}, {"s": "warring-states", "t": "state-wei", "type": "", "source": "warring-states", "target": "state-wei"}, {"s": "warring-states", "t": "state-yan", "type": "", "source": "warring-states", "target": "state-yan"}, {"s": "state-jin", "t": "state-han", "type": "j", "source": "state-jin", "target": "state-han"}, {"s": "state-jin", "t": "state-zhao", "type": "j", "source": "state-jin", "target": "state-zhao"}, {"s": "state-jin", "t": "state-wei", "type": "j", "source": "state-jin", "target": "state-wei"}, {"s": "state-qin", "t": "state-han", "type": "r", "source": "state-qin", "target": "state-han"}, {"s": "state-qin", "t": "state-zhao", "type": "r", "source": "state-qin", "target": "state-zhao"}, {"s": "state-qin", "t": "state-wei", "type": "r", "source": "state-qin", "target": "state-wei"}, {"s": "state-qin", "t": "state-chu", "type": "r", "source": "state-qin", "target": "state-chu"}, {"s": "state-qin", "t": "state-yan", "type": "r", "source": "state-qin", "target": "state-yan"}, {"s": "state-zhao", "t": "state-han", "type": "r", "source": "state-zhao", "target": "state-han"}, {"s": "state-wei", "t": "state-han", "type": "r", "source": "state-wei", "target": "state-han"}, {"s": "state-wei", "t": "state-zhao", "type": "r", "source": "state-wei", "target": "state-zhao"}, {"s": "state-chu", "t": "state-wei", "type": "r", "source": "state-chu", "target": "state-wei"}, {"s": "state-chu", "t": "state-wu", "type": "r", "source": "state-chu", "target": "state-wu"}, {"s": "state-wu", "t": "state-yue", "type": "r", "source": "state-wu", "target": "state-yue"}, {"s": "state-qin", "t": "state-jin", "type": "r", "source": "state-qin", "target": "state-jin"}, {"s": "state-qi", "t": "lord-mengchang", "type": "l2", "source": "state-qi", "target": "lord-mengchang"}, {"s": "state-chu", "t": "lord-chunshen", "type": "l2", "source": "state-chu", "target": "lord-chunshen"}, {"s": "state-wei", "t": "lord-xinling", "type": "l2", "source": "state-wei", "target": "lord-xinling"}, {"s": "state-zhao", "t": "lord-pingyuan", "type": "l2", "source": "state-zhao", "target": "lord-pingyuan"}, {"s": "warring-states", "t": "lord-mengchang", "type": "", "source": "warring-states", "target": "lord-mengchang"}, {"s": "warring-states", "t": "lord-xinling", "type": "", "source": "warring-states", "target": "lord-xinling"}, {"s": "warring-states", "t": "lord-pingyuan", "type": "", "source": "warring-states", "target": "lord-pingyuan"}, {"s": "warring-states", "t": "lord-chunshen", "type": "", "source": "warring-states", "target": "lord-chunshen"}, {"s": "lord-mengchang", "t": "lord-xinling", "type": "r", "source": "lord-mengchang", "target": "lord-xinling"}, {"s": "lord-xinling", "t": "lord-pingyuan", "type": "r", "source": "lord-xinling", "target": "lord-pingyuan"}, {"s": "lord-pingyuan", "t": "lord-chunshen", "type": "r", "source": "lord-pingyuan", "target": "lord-chunshen"}, {"s": "state-lu", "t": "confucius", "type": "", "source": "state-lu", "target": "confucius"}, {"s": "state-chu", "t": "laozi", "type": "", "source": "state-chu", "target": "laozi"}, {"s": "state-wu", "t": "sun-tzu", "type": "", "source": "state-wu", "target": "sun-tzu"}, {"s": "state-lu", "t": "mozi", "type": "", "source": "state-lu", "target": "mozi"}, {"s": "state-chu", "t": "zhuangzi", "type": "", "source": "state-chu", "target": "zhuangzi"}, {"s": "state-lu", "t": "mencius", "type": "", "source": "state-lu", "target": "mencius"}, {"s": "state-han", "t": "han-fei", "type": "", "source": "state-han", "target": "han-fei"}, {"s": "state-qi", "t": "guan-zhong", "type": "", "source": "state-qi", "target": "guan-zhong"}, {"s": "state-qin", "t": "shang-yang", "type": "", "source": "state-qin", "target": "shang-yang"}, {"s": "state-wei", "t": "wu-qi", "type": "", "source": "state-wei", "target": "wu-qi"}, {"s": "state-chu", "t": "wu-qi", "type": "", "source": "state-chu", "target": "wu-qi"}, {"s": "state-qin", "t": "bai-qi", "type": "", "source": "state-qin", "target": "bai-qi"}, {"s": "state-qi", "t": "sun-bin", "type": "", "source": "state-qi", "target": "sun-bin"}, {"s": "state-qin", "t": "qin-shi-huang", "type": "", "source": "state-qin", "target": "qin-shi-huang"}, {"s": "state-chu", "t": "qu-yuan", "type": "", "source": "state-chu", "target": "qu-yuan"}, {"s": "state-qin", "t": "battle-changping", "type": "", "source": "state-qin", "target": "battle-changping"}, {"s": "state-zhao", "t": "battle-changping", "type": "", "source": "state-zhao", "target": "battle-changping"}, {"s": "state-qi", "t": "battle-maling", "type": "", "source": "state-qi", "target": "battle-maling"}, {"s": "state-wei", "t": "battle-maling", "type": "", "source": "state-wei", "target": "battle-maling"}, {"s": "zhou-dynasty", "t": "mandate-heaven", "type": "", "source": "zhou-dynasty", "target": "mandate-heaven"}, {"s": "zhou-dynasty", "t": "feudal-system", "type": "", "source": "zhou-dynasty", "target": "feudal-system"}, {"s": "shang-dynasty", "t": "bronze-age", "type": "", "source": "shang-dynasty", "target": "bronze-age"}, {"s": "zhou-dynasty", "t": "bronze-age", "type": "", "source": "zhou-dynasty", "target": "bronze-age"}, {"s": "spring-autumn", "t": "hundred-schools", "type": "", "source": "spring-autumn", "target": "hundred-schools"}, {"s": "warring-states", "t": "hundred-schools", "type": "", "source": "warring-states", "target": "hundred-schools"}, {"s": "state-qin", "t": "commandery-county", "type": "", "source": "state-qin", "target": "commandery-county"}, {"s": "state-qin", "t": "well-field", "type": "", "source": "state-qin", "target": "well-field"}, {"s": "warring-states", "t": "vertical-horizontal", "type": "", "source": "warring-states", "target": "vertical-horizontal"}, {"s": "confucius", "t": "hundred-schools", "type": "", "source": "confucius", "target": "hundred-schools"}, {"s": "laozi", "t": "hundred-schools", "type": "", "source": "laozi", "target": "hundred-schools"}, {"s": "sun-tzu", "t": "hundred-schools", "type": "", "source": "sun-tzu", "target": "hundred-schools"}, {"s": "mozi", "t": "hundred-schools", "type": "", "source": "mozi", "target": "hundred-schools"}, {"s": "zhuangzi", "t": "hundred-schools", "type": "", "source": "zhuangzi", "target": "hundred-schools"}, {"s": "mencius", "t": "hundred-schools", "type": "", "source": "mencius", "target": "hundred-schools"}, {"s": "han-fei", "t": "hundred-schools", "type": "", "source": "han-fei", "target": "hundred-schools"}, {"s": "guan-zhong", "t": "feudal-system", "type": "", "source": "guan-zhong", "target": "feudal-system"}, {"s": "shang-yang", "t": "commandery-county", "type": "", "source": "shang-yang", "target": "commandery-county"}, {"s": "shang-yang", "t": "well-field", "type": "", "source": "shang-yang", "target": "well-field"}, {"s": "qin-shi-huang", "t": "commandery-county", "type": "", "source": "qin-shi-huang", "target": "commandery-county"}, {"s": "timeline", "t": "xia-dynasty", "type": "l", "source": "timeline", "target": "xia-dynasty"}, {"s": "timeline", "t": "shang-dynasty", "type": "l", "source": "timeline", "target": "shang-dynasty"}, {"s": "timeline", "t": "zhou-dynasty", "type": "l", "source": "timeline", "target": "zhou-dynasty"}, {"s": "timeline", "t": "spring-autumn", "type": "l", "source": "timeline", "target": "spring-autumn"}, {"s": "timeline", "t": "warring-states", "type": "l", "source": "timeline", "target": "warring-states"}, {"s": "timeline", "t": "state-qi", "type": "l", "source": "timeline", "target": "state-qi"}, {"s": "timeline", "t": "state-qin", "type": "l", "source": "timeline", "target": "state-qin"}, {"s": "timeline", "t": "state-chu", "type": "l", "source": "timeline", "target": "state-chu"}, {"s": "timeline", "t": "state-han", "type": "l", "source": "timeline", "target": "state-han"}, {"s": "timeline", "t": "state-zhao", "type": "l", "source": "timeline", "target": "state-zhao"}, {"s": "timeline", "t": "state-wei", "type": "l", "source": "timeline", "target": "state-wei"}, {"s": "timeline", "t": "state-yan", "type": "l", "source": "timeline", "target": "state-yan"}, {"s": "timeline", "t": "lord-mengchang", "type": "l", "source": "timeline", "target": "lord-mengchang"}, {"s": "timeline", "t": "lord-xinling", "type": "l", "source": "timeline", "target": "lord-xinling"}, {"s": "timeline", "t": "lord-pingyuan", "type": "l", "source": "timeline", "target": "lord-pingyuan"}, {"s": "timeline", "t": "lord-chunshen", "type": "l", "source": "timeline", "target": "lord-chunshen"}, {"s": "timeline", "t": "battle-changping", "type": "l", "source": "timeline", "target": "battle-changping"}, {"s": "timeline", "t": "battle-maling", "type": "l", "source": "timeline", "target": "battle-maling"}, {"s": "timeline", "t": "qin-shi-huang", "type": "l", "source": "timeline", "target": "qin-shi-huang"}, {"s": "world", "t": "goguryeo", "type": "", "source": "world", "target": "goguryeo"}, {"s": "ming-qing", "t": "yongle", "type": "", "source": "ming-qing", "target": "yongle"}]}');
 
-var data={"nodes":[
-  {id:"pre-qin",t:"先秦",g:"period",d:"~21C BCE–221 BCE",x:60,y:50},
-  {id:"qin-han",t:"秦汉",g:"dim",x:200,y:50},{id:"wei-jin",t:"魏晋",g:"dim",x:320,y:50},{id:"sui-tang",t:"隋唐",g:"dim",x:440,y:50},{id:"song-yuan",t:"宋元",g:"dim",x:560,y:50},{id:"ming-qing",t:"明清",g:"dim",x:680,y:50},{id:"modern-china",t:"近现代",g:"dim",x:800,y:50},
-  {id:"xia-dynasty",t:"夏朝",g:"dynasty",d:"第一个世袭王朝",x:30,y:120},{id:"shang-dynasty",t:"商朝",g:"dynasty",d:"甲骨文·青铜",x:150,y:120},{id:"zhou-dynasty",t:"周朝",g:"dynasty",d:"790年·封建礼乐",x:270,y:120},
-  {id:"spring-autumn",t:"春秋",g:"dynasty",d:"五霸·孔子时代",x:90,y:200},{id:"warring-states",t:"战国",g:"dynasty",d:"七雄·变法·统一",x:250,y:200},
-  {id:"state-qi",t:"齐",g:"state",d:"管仲·首霸·稷下",x:10,y:290},{id:"state-jin",t:"晋",g:"state",d:"城濮·六卿·分晋",x:100,y:290},{id:"state-chu",t:"楚",g:"state",d:"问鼎·楚辞",x:190,y:290},{id:"state-qin",t:"秦",g:"state",d:"商鞅→统一",x:280,y:290},{id:"state-lu",t:"鲁",g:"state",d:"周礼·孔子故里",x:370,y:290},{id:"state-wu",t:"吴",g:"state",d:"孙武·破楚",x:460,y:290},{id:"state-yue",t:"越",g:"state",d:"卧薪尝胆",x:550,y:290},
-  {id:"state-han",t:"韩",g:"state",d:"劲弩·术治·最弱",x:60,y:370},{id:"state-zhao",t:"赵",g:"state",d:"胡服骑射·长平",x:170,y:370},{id:"state-wei",t:"魏",g:"state",d:"战国首霸·人才流失",x:290,y:370},
-  // Four Lords row (NEW - gold)
-  {id:"lord-mengchang",t:"孟尝君",g:"lord",d:"田文·齐·鸡鸣狗盗",x:10,y:400},{id:"lord-xinling",t:"信陵君",g:"lord",d:"魏无忌·窃符救赵",x:130,y:400},{id:"lord-pingyuan",t:"平原君",g:"lord",d:"赵胜·毛遂自荐",x:260,y:400},{id:"lord-chunshen",t:"春申君",g:"lord",d:"黄歇·开发江东",x:400,y:400},
-  {id:"confucius",t:"孔子",g:"figure",d:"儒家创始人",x:50,y:520},{id:"laozi",t:"老子",g:"figure",d:"道家创始人",x:180,y:520},{id:"sun-tzu",t:"孙子",g:"figure",d:"兵家鼻祖",x:310,y:520},
-  {id:"mandate-heaven",t:"天命观",g:"concept",d:"以德配天",x:10,y:630},{id:"feudal-system",t:"封建制",g:"concept",d:"封土建国",x:130,y:630},{id:"bronze-age",t:"青铜文明",g:"concept",d:"礼器文化",x:250,y:630},{id:"hundred-schools",t:"诸子百家",g:"concept",d:"九流十家",x:370,y:630},
-  {id:"timeline",t:"⏱ 大事年表",g:"timeline",d:"先秦编年",x:500,y:520}
-]};
+var colors={"period": "#3fb950", "dim": "#30363d", "dynasty": "#3fb950", "state": "#39d353", "lord": "#d29922", "thinker": "#58a6ff", "reformer": "#f0883e", "military": "#f85149", "emperor": "#ff7b72", "poet": "#d2a8ff", "battle": "#db6d28", "concept": "#bc8cff", "timeline": "#f0883e", "world": "#39d353", "ming-entity": "#bc8cff"};
+var radii={"period": 16, "dim": 7, "dynasty": 14, "state": 11, "lord": 13, "thinker": 10, "reformer": 10, "military": 10, "emperor": 13, "poet": 10, "battle": 10, "concept": 11, "timeline": 16, "world": 14, "ming-entity": 12};
 
-var links=[
-  {s:"pre-qin",t:"xia-dynasty"},{s:"pre-qin",t:"shang-dynasty"},{s:"pre-qin",t:"zhou-dynasty"},{s:"pre-qin",t:"spring-autumn"},{s:"pre-qin",t:"warring-states"},
-  {s:"xia-dynasty",t:"shang-dynasty",f:1},{s:"shang-dynasty",t:"zhou-dynasty",f:1},{s:"zhou-dynasty",t:"spring-autumn",f:1},{s:"zhou-dynasty",t:"warring-states",f:1},
-  {s:"spring-autumn",t:"state-qi"},{s:"spring-autumn",t:"state-jin"},{s:"spring-autumn",t:"state-chu"},{s:"spring-autumn",t:"state-qin"},{s:"spring-autumn",t:"state-lu"},{s:"spring-autumn",t:"state-wu"},{s:"spring-autumn",t:"state-yue"},
-  {s:"warring-states",t:"state-qi"},{s:"warring-states",t:"state-qin"},{s:"warring-states",t:"state-chu"},
-  {s:"warring-states",t:"state-han"},{s:"warring-states",t:"state-zhao"},{s:"warring-states",t:"state-wei"},
-  // Lords → States
-  {s:"state-qi",t:"lord-mengchang",l2:1},{s:"state-chu",t:"lord-chunshen",l2:1},
-  // Lords → Warring States
-  {s:"warring-states",t:"lord-mengchang"},{s:"warring-states",t:"lord-xinling"},{s:"warring-states",t:"lord-pingyuan"},{s:"warring-states",t:"lord-chunshen"},
-  // Inter-lord cross references
-  {s:"lord-mengchang",t:"lord-xinling",r:1},{s:"lord-xinling",t:"lord-pingyuan",r:1},{s:"lord-pingyuan",t:"lord-chunshen",r:1},
-  {s:"state-lu",t:"confucius"},{s:"state-chu",t:"laozi"},{s:"state-wu",t:"sun-tzu"},
-  {s:"state-qi",t:"hundred-schools"},{s:"state-qi",t:"feudal-system"},{s:"state-jin",t:"feudal-system"},{s:"state-jin",t:"hundred-schools"},{s:"state-chu",t:"hundred-schools"},{s:"state-chu",t:"bronze-age"},{s:"state-qin",t:"feudal-system"},{s:"state-lu",t:"hundred-schools"},
-  {s:"state-qi",t:"state-jin",r:1},{s:"state-jin",t:"state-chu",r:1},{s:"state-chu",t:"state-wu",r:1},{s:"state-wu",t:"state-yue",r:1},{s:"state-qin",t:"state-jin",r:1},
-  // Jin → Han, Zhao, Wei (partition)
-  {s:"state-jin",t:"state-han",j:1},{s:"state-jin",t:"state-zhao",j:1},{s:"state-jin",t:"state-wei",j:1},
-  // Seven Warring States relations
-  {s:"state-qin",t:"state-han",r:1},{s:"state-qin",t:"state-zhao",r:1},{s:"state-qin",t:"state-wei",r:1},
-  {s:"state-zhao",t:"state-han",r:1},{s:"state-wei",t:"state-han",r:1},{s:"state-wei",t:"state-zhao",r:1},
-  {s:"zhou-dynasty",t:"mandate-heaven"},{s:"zhou-dynasty",t:"feudal-system"},{s:"shang-dynasty",t:"bronze-age"},{s:"zhou-dynasty",t:"bronze-age"},{s:"spring-autumn",t:"hundred-schools"},{s:"warring-states",t:"hundred-schools"},
-  {s:"confucius",t:"hundred-schools"},{s:"laozi",t:"hundred-schools"},{s:"sun-tzu",t:"hundred-schools"},
-  {s:"timeline",t:"xia-dynasty",l:1},{s:"timeline",t:"shang-dynasty",l:1},{s:"timeline",t:"zhou-dynasty",l:1},{s:"timeline",t:"spring-autumn",l:1},{s:"timeline",t:"warring-states",l:1},{s:"timeline",t:"state-qi",l:1},{s:"timeline",t:"state-qin",l:1},{s:"timeline",t:"state-chu",l:1},{s:"timeline",t:"state-han",l:1},{s:"timeline",t:"state-zhao",l:1},{s:"timeline",t:"state-wei",l:1},
-  {s:"timeline",t:"lord-mengchang",l:1},{s:"timeline",t:"lord-xinling",l:1},{s:"timeline",t:"lord-pingyuan",l:1},{s:"timeline",t:"lord-chunshen",l:1},
-];
-links.forEach(function(l){l.source=l.s;l.target=l.t;});
+data.links.forEach(function(l){l.source=l.s;l.target=l.t;});
 
-var colors={period:"#3fb950",dim:"#30363d",dynasty:"#3fb950",state:"#39d353",lord:"#d29922",figure:"#58a6ff",concept:"#bc8cff",timeline:"#f0883e"};
-var radii={period:16,dim:7,dynasty:14,state:11,lord:13,figure:13,concept:12,timeline:16};
-var opacities={period:1,dim:0.2,dynasty:1,state:1,lord:1,figure:1,concept:1,timeline:1};
+var W=window.innerWidth,H=window.innerHeight,
+    svg=d3.select("#graph").append("svg").attr("width",W).attr("height",H),
+    g=svg.append("g");
+svg.call(d3.zoom().scaleExtent([0.25,3]).on("zoom",function(e){g.attr("transform",e.transform)}));
 
-var W=window.innerWidth,H=window.innerHeight,svg=d3.select("#graph").append("svg").attr("width",W).attr("height",H),g=svg.append("g");
-svg.call(d3.zoom().scaleExtent([0.3,3]).on("zoom",function(e){g.attr("transform",e.transform)}));
-var sim=d3.forceSimulation(data.nodes).force("link",d3.forceLink(links).id(function(d){return d.id}).distance(80)).force("charge",d3.forceManyBody().strength(-160)).force("x",d3.forceX(function(d){return d.x||300}).strength(0.04)).force("y",d3.forceY(function(d){return d.y||300}).strength(0.04)).force("collide",d3.forceCollide(25));
+var sim=d3.forceSimulation(data.nodes)
+  .force("link",d3.forceLink(data.links).id(function(d){return d.id}).distance(80))
+  .force("charge",d3.forceManyBody().strength(-180))
+  .force("x",d3.forceX(function(d){return d.x||300}).strength(0.03))
+  .force("y",d3.forceY(function(d){return d.y||300}).strength(0.03))
+  .force("collide",d3.forceCollide(28));
+
 var tooltip=d3.select("#tooltip");
-var link=g.append("g").selectAll("line").data(links).join("line").attr("stroke",function(d){return d.f?"#3fb950":d.l?"#f0883e":d.l2?"#d29922":d.j?"#39d353":d.r?"#30363d":"#30363d"}).attr("stroke-width",function(d){return d.f?2:d.l2?2.5:d.j?2:1}).attr("stroke-dasharray",function(d){return d.l?"4,3":d.r?"2,2":d.l2?"6,2":d.j?"2,2":"none"}).attr("opacity",function(d){return d.r?0.4:d.l2?0.7:d.j?0.6:0.6});
 
-var node=g.append("g").selectAll("g").data(data.nodes).join("g").call(d3.drag().on("start",function(e,d){if(!e.active)sim.alphaTarget(0.3).restart();d.fx=d.x;d.fy=d.y}).on("drag",function(e,d){d.fx=e.x;d.fy=e.y}).on("end",function(e,d){if(!e.active)sim.alphaTarget(0);d.fx=null;d.fy=null}));
-node.append("circle").attr("r",function(d){return radii[d.g]||8}).attr("fill",function(d){return colors[d.g]||"#8b949e"}).attr("stroke","#0d1117").attr("stroke-width",1.5).attr("opacity",function(d){return opacities[d.g]||1}).on("click",function(e,d){if(C[d.id]){document.getElementById("panel-title").textContent=d.t;document.getElementById("panel-body").innerHTML=C[d.id];document.getElementById("panel").classList.add("show");}e.stopPropagation();}).on("mouseover",function(e,d){d3.select(this).transition().duration(200).attr("r",(radii[d.g]||8)*1.5);link.attr("opacity",function(l){return(l.source.id===d.id||l.target.id===d.id)?1:0.03});node.select("circle").attr("opacity",function(n){if(n.id===d.id)return 1;for(var j=0;j<links.length;j++){if((links[j].source.id===d.id&&links[j].target.id===n.id)||(links[j].target.id===d.id&&links[j].source.id===n.id))return 0.7;}return 0.05;});tooltip.style("display","block").html("<b>"+d.t+"</b><br><span style='color:#8b949e'>"+(d.d||"")+"</span>");}).on("mousemove",function(e){tooltip.style("left",(e.pageX+12)+"px").style("top",(e.pageY-40)+"px")}).on("mouseout",function(){d3.select(this).transition().duration(200).attr("r",function(d){return radii[d.g]||8});link.attr("opacity",function(d){return d.r?0.4:d.l2?0.7:0.6});node.select("circle").attr("opacity",function(d){return opacities[d.g]||1});tooltip.style("display","none");});
-node.append("text").text(function(d){return d.t}).attr("dy",function(d){return(radii[d.g]||8)+14}).attr("text-anchor","middle").attr("fill","#c9d1d9").attr("font-size",function(d){return d.g==="state"||d.g==="figure"||d.g==="lord"?"10":"11"}).attr("font-weight",function(d){return d.g==="lord"?"bold":"normal"});
+var link=g.append("g").selectAll("line").data(data.links).join("line")
+  .attr("stroke",function(d){
+    if(d.type=="f")return"#3fb950"; if(d.type=="l2")return"#d29922";
+    if(d.type=="j")return"#39d353"; if(d.type=="l")return"#f0883e";
+    if(d.type=="r")return"#30363d"; return"#30363d";
+  })
+  .attr("stroke-width",function(d){return d.type=="f"?2:d.type=="l2"?2.5:d.type=="j"?2:1})
+  .attr("stroke-dasharray",function(d){return d.type=="l"?"4,3":d.type=="r"?"2,2":d.type=="l2"?"6,2":d.type=="j"?"2,2":"none"})
+  .attr("opacity",function(d){return d.type=="r"?0.3:d.type=="l2"?0.7:d.type=="j"?0.5:0.5});
+
+var node=g.append("g").selectAll("g").data(data.nodes).join("g")
+  .call(d3.drag()
+    .on("start",function(e,d){if(!e.active)sim.alphaTarget(0.3).restart();d.fx=d.x;d.fy=d.y})
+    .on("drag",function(e,d){d.fx=e.x;d.fy=e.y})
+    .on("end",function(e,d){if(!e.active)sim.alphaTarget(0);d.fx=null;d.fy=null}));
+
+node.append("circle")
+  .attr("r",function(d){return radii[d.g]||8})
+  .attr("fill",function(d){return colors[d.g]||"#8b949e"})
+  .attr("stroke","#0d1117").attr("stroke-width",1.5)
+  .attr("opacity",function(d){return d.g=="dim"?0.15:1})
+  .on("click",function(e,d){
+    if(C[d.id]){
+      document.getElementById("panel-title").textContent=d.t;
+      document.getElementById("panel-body").innerHTML=C[d.id];
+      document.getElementById("panel").classList.add("show");
+    }
+    e.stopPropagation();
+  })
+  .on("mouseover",function(e,d){
+    d3.select(this).transition().duration(200).attr("r",(radii[d.g]||8)*1.5);
+    link.attr("opacity",function(l){return(l.source.id===d.id||l.target.id===d.id)?1:0.02});
+    node.select("circle").attr("opacity",function(n){
+      if(n.id===d.id)return 1;
+      for(var j=0;j<data.links.length;j++)
+        if((data.links[j].source.id===d.id&&data.links[j].target.id===n.id)||(data.links[j].target.id===d.id&&data.links[j].source.id===n.id))return 0.6;
+      return 0.03;
+    });
+    tooltip.style("display","block").html("<b>"+d.t+"</b><br><span style='color:#8b949e'>"+(d.d||"")+"</span>");
+  })
+  .on("mousemove",function(e){tooltip.style("left",(e.pageX+12)+"px").style("top",(e.pageY-40)+"px")})
+  .on("mouseout",function(){
+    d3.select(this).transition().duration(200).attr("r",function(d){return radii[d.g]||8});
+    link.attr("opacity",function(d){return d.type=="r"?0.3:d.type=="l2"?0.7:d.type=="j"?0.5:0.5});
+    node.select("circle").attr("opacity",function(d){return d.g=="dim"?0.15:1});
+    tooltip.style("display","none");
+  });
+
+node.append("text")
+  .text(function(d){return d.t})
+  .attr("dy",function(d){return(radii[d.g]||8)+12}).attr("text-anchor","middle")
+  .attr("fill","#c9d1d9").attr("font-size",function(d){return d.g=="state"||d.g=="thinker"||d.g=="reformer"||d.g=="military"||d.g=="battle"?"9":"11"})
+  .attr("font-weight",function(d){return d.g=="lord"||d.g=="emperor"?"bold":"normal"});
+
 d3.select("svg").on("click",function(){document.getElementById("panel").classList.remove("show");});
-sim.on("tick",function(){link.attr("x1",function(d){return d.source.x}).attr("y1",function(d){return d.source.y}).attr("x2",function(d){return d.target.x}).attr("y2",function(d){return d.target.y});node.attr("transform",function(d){return "translate("+d.x+","+d.y+")"});});
+function closePanel(){document.getElementById("panel").classList.remove("show");}
+
+sim.on("tick",function(){
+  link.attr("x1",function(d){return d.source.x}).attr("y1",function(d){return d.source.y})
+      .attr("x2",function(d){return d.target.x}).attr("y2",function(d){return d.target.y});
+  node.attr("transform",function(d){return"translate("+d.x+","+d.y+")"});
+});
 </script>
 </body>
 </html>
