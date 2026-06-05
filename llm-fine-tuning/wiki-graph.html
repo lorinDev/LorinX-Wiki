@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LLM Fine-Tuning Wiki — 知识图谱</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,'Microsoft YaHei',sans-serif;background:#0d1117;color:#c9d1d9;overflow:hidden}
+#graph{width:100vw;height:100vh}
+#info{position:fixed;top:16px;left:16px;background:rgba(22,27,34,.92);padding:12px 16px;border-radius:8px;border:1px solid #30363d;font-size:13px;max-width:300px;z-index:1}
+#info h1{font-size:15px;color:#58a6ff;margin-bottom:4px}
+#info p{color:#8b949e;line-height:1.5;font-size:12px}
+#legend{position:fixed;bottom:16px;left:16px;background:rgba(22,27,34,.92);padding:10px 14px;border-radius:8px;border:1px solid #30363d;font-size:12px;display:flex;gap:16px;z-index:1}
+.leg{display:flex;align-items:center;gap:6px}
+.leg span{width:10px;height:10px;border-radius:50%;display:inline-block}
+.tooltip{position:fixed;pointer-events:none;background:rgba(22,27,34,.95);padding:8px 12px;border-radius:6px;border:1px solid #30363d;font-size:12px;display:none;z-index:10}
+
+/* Detail Panel */
+#panel{position:fixed;top:0;right:0;width:480px;height:100vh;background:#161b22;border-left:1px solid #30363d;overflow-y:auto;z-index:20;display:none;box-shadow:-4px 0 24px rgba(0,0,0,.5)}
+#panel.show{display:block}
+#panel-header{position:sticky;top:0;background:#161b22;border-bottom:1px solid #30363d;padding:16px 20px;display:flex;justify-content:space-between;align-items:center}
+#panel-header h2{font-size:18px;color:#58a6ff;margin:0}
+#panel-close{cursor:pointer;background:none;border:1px solid #30363d;color:#8b949e;font-size:18px;width:32px;height:32px;border-radius:6px;display:flex;align-items:center;justify-content:center}
+#panel-close:hover{color:#f85149;border-color:#f85149}
+#panel-body{padding:20px}
+#panel-body h1{font-size:20px;color:#f0f6fc;margin:16px 0 12px;border-bottom:1px solid #21262d;padding-bottom:8px}
+#panel-body h2{font-size:16px;color:#f0f6fc;margin:20px 0 10px}
+#panel-body h3{font-size:14px;color:#d2a8ff;margin:16px 0 8px}
+#panel-body p,#panel-body li{font-size:13px;line-height:1.7;color:#c9d1d9;margin:4px 0}
+#panel-body ul,#panel-body ol{padding-left:20px}
+#panel-body strong{color:#f0f6fc}
+#panel-body table{width:100%;border-collapse:collapse;margin:8px 0;font-size:12px}
+#panel-body th{background:#21262d;padding:6px 10px;text-align:left;font-weight:600;color:#58a6ff;border:1px solid #30363d}
+#panel-body td{padding:6px 10px;border:1px solid #30363d;vertical-align:top}
+#panel-body tr:nth-child(even){background:rgba(48,54,61,.3)}
+#panel-body code{background:#21262d;padding:2px 6px;border-radius:4px;font-size:12px;color:#d2a8ff}
+#panel-body pre{background:#0d1117;border:1px solid #30363d;border-radius:6px;padding:12px;overflow-x:auto;margin:8px 0;font-size:12px}
+#panel-body pre code{background:none;padding:0;color:#c9d1d9}
+#panel-body a{color:#58a6ff;text-decoration:none}
+#panel-body a:hover{text-decoration:underline}
+#panel-body blockquote{border-left:3px solid #d29922;padding:4px 12px;margin:8px 0;color:#8b949e}
+#panel-body .wikilink{background:rgba(88,166,255,.12);color:#58a6ff;padding:2px 6px;border-radius:4px;font-size:12px;cursor:pointer}
+#panel-body hr{border:none;border-top:1px solid #21262d;margin:16px 0}
+#panel-tags{margin-top:12px;display:flex;flex-wrap:wrap;gap:6px}
+.tag{background:rgba(88,166,255,.12);color:#58a6ff;padding:2px 8px;border-radius:10px;font-size:11px}
+</style>
+</head>
+<body>
+
+<div id="graph"></div>
+<div id="info"><h1>LLM 微调论文知识库</h1><p>🖱️ 点击节点查看详情 · 拖拽移动 · 滚轮缩放</p></div>
+<div id="legend">
+  <div class="leg"><span style="background:#58a6ff"></span> 概念页</div>
+  <div class="leg"><span style="background:#d29922"></span> 对比分析</div>
+  <div class="leg"><span style="background:#8b949e"></span> 外部引用</div>
+</div>
+<div class="tooltip" id="tooltip"></div>
+
+<div id="panel">
+  <div id="panel-header">
+    <h2 id="panel-title"></h2>
+    <button id="panel-close" onclick="closePanel()">✕</button>
+  </div>
+  <div id="panel-body"></div>
+</div>
+
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script>
+// Wiki content data
+const contents = {
+lora: `---
+title: LoRA (Low-Rank Adaptation)
+tags: [lora, peft, method]
+---
+
+# LoRA: Low-Rank Adaptation
+
+## 核心思想
+
+LoRA 是一种 **参数高效微调 (PEFT)** 方法，核心假设是：预训练大模型在适配下游任务时，权重更新矩阵是 **低秩 (low-rank)** 的。
+
+**数学形式：** W = W₀ + BA，其中 B ∈ R^{d×r}，A ∈ R^{r×k}，秩 r ≪ min(d,k)。
+
+- W₀ 冻结，仅训练 A 和 B
+- 推理时 BA 可合并回 W₀，**无额外推理延迟**
+
+## 主要优势
+
+| 维度 | 效果 |
+|------|------|
+| 可训练参数 | 减少 **10,000×**（vs GPT-3 175B 全量微调） |
+| GPU 显存 | 降低 **3×** |
+| 推理延迟 | **零**（可合并权重） |
+| 多任务 | 只需换 LoRA 权重 |
+| 性能 | 达到或超过全量微调 |
+
+## 变体与衍生
+
+- QLoRA — 量化 + LoRA，4-bit 精度下微调 65B 模型
+- DoRA (2024) — 权重分解为幅度+方向
+- AdaLoRA — 自适应分配秩
+
+## 待解决问题
+
+- 最优秩 r 的选择无通用准则
+- 不同层对秩的需求不同
+- 与 DPO 等对齐方法的结合仍在探索
+`,
+
+qlora: `---
+title: QLoRA (Quantized LoRA)
+tags: [lora, quantization, peft, method]
+---
+
+# QLoRA: Quantized Low-Rank Adaptation
+
+## 核心思想
+
+QLoRA 将 **4-bit 量化** 与 **LoRA** 结合，在单张 48GB 消费级 GPU 上微调 65B 参数模型。
+
+## 三大创新
+
+### 1. 4-bit NormalFloat (NF4)
+针对正态分布权重信息论最优的 4-bit 数据类型，比标准格式精度更高。
+
+### 2. Double Quantization（双重量化）
+对量化常数自身再量化，进一步压缩内存。
+
+### 3. Paged Optimizers（分页优化器）
+类似 OS 分页机制，管理 GPU 显存尖峰，防止 OOM。
+
+## Guanaco 模型家族
+
+| 指标 | 结果 |
+|------|------|
+| Vicuna 基准 | 超越所有先前开源模型 |
+| vs ChatGPT | **99.3%** |
+| 训练成本 | 单 GPU 24 小时 |
+| 微调模型数 | >1,000 个 |
+
+## 关键发现
+
+1. GPT-4 评估可作为人工评估的廉价替代
+2. 现有 chatbot 基准不可信
+3. 数据质量 > 数据数量
+`,
+
+dpo: `---
+title: DPO (Direct Preference Optimization)
+tags: [dpo, rlhf, alignment, method]
+---
+
+# DPO: Direct Preference Optimization
+
+## 核心思想
+
+DPO 通过重新参数化 RLHF 中的奖励模型，**直接从偏好数据中优化策略**，将 RLHF 转化为 **简单的分类损失**。
+
+> 核心洞察：语言模型本身就隐含了一个奖励函数，可提取最优策略的闭式解。
+
+## 技术优势
+
+| 维度 | RLHF (PPO) | DPO |
+|------|-----------|-----|
+| 奖励模型 | 需要单独训练 | **不需要** |
+| 训练方式 | 强化学习 | **分类损失** |
+| 稳定性 | 可能崩溃 | **稳定** |
+| 计算开销 | 需采样生成 | **轻量** |
+
+## 主要变体
+
+- **IPO** — Identity Preference Optimization，解决过拟合
+- **KTO** — 只需单边偏好
+- **SimPO** — 用序列平均对数概率
+- **Cal-DPO** — 校准的偏好优化 (NeurIPS 2024)
+
+## 局限性
+
+- 与 RLVR (GRPO) 相比，在数学/代码中可能不如 RL 方法
+- 偏好数据质量仍是挑战
+`,
+
+rlhf: `---
+title: RLHF (Reinforcement Learning from Human Feedback)
+tags: [rlhf, alignment, method]
+---
+
+# RLHF
+
+## 核心定义
+
+RLHF 使用 **人类反馈替代工程化奖励函数**。起源于控制与机器人领域，在 LLM 对齐中取得突破。
+
+## 标准流水线
+
+1. **SFT** — 在高质量指令-回答对上微调
+2. **Reward Model** — 训练打分模型
+3. **PPO 优化** — RL 策略更新 + KL 散度惩罚
+
+## 发展里程碑
+
+| 事件 | 时间 | 意义 |
+|------|------|------|
+| PbRL 早期 | ~2017 | 偏好学习基础 |
+| InstructGPT | 2022 | 大规模应用 |
+| ChatGPT | 2022.11 | 商业化成功 |
+| DPO 提出 | 2023.05 | RL-free 替代 |
+| DeepSeek-R1 | 2025.01 | RLVR 崛起 |
+
+## 统一策略梯度框架
+
+Wang et al. (2024) 将预训练、SFT、RLHF、RLVR 统一到一个框架，分解为：Prompt 采样、Response 采样、梯度系数。
+
+## 局限性
+
+1. 奖励 hacking
+2. 人类偏好噪声
+3. 计算成本高
+4. 分布偏移
+`,
+
+"instruction-tuning": `---
+title: Instruction Tuning (SFT)
+tags: [instruction-tuning, sft, alignment, method]
+---
+
+# Instruction Tuning (SFT)
+
+## 核心定义
+
+指令微调 (IT) 与监督微调 (SFT) 常混用，指在 (instruction, output) 对上训练 LLM，弥合预训练目标与人类指令之间的差距。
+
+## 方法论全景
+
+### 数据集构建
+- **人工标注** — 质量高，成本大
+- **模型生成** — Self-Instruct, Alpaca, Evol-Instruct
+- **混合策略** — 人工种子 + 模型扩展
+
+### 关键因素
+
+| 因素 | 发现 |
+|------|------|
+| 数据质量 | **质量 > 数量** |
+| 数据多样性 | 提升泛化 |
+| 指令复杂度 | 有助于推理 |
+| 模型规模 | 存在阈值效应 |
+
+## 陷阱
+
+1. 数据污染
+2. 灾难性遗忘
+3. 幻觉放大
+4. 表面模式学习
+
+## 对齐流水线中的位置
+
+\`\`\`
+Pretraining → SFT → Preference Alignment (RLHF/DPO)
+\`\`\`
+`,
+
+peft: `---
+title: PEFT (Parameter-Efficient Fine-Tuning)
+tags: [peft, lora, survey]
+---
+
+# PEFT
+
+## 核心定义
+
+PEFT 指微调预训练大模型时仅更新 **少量参数**，大幅降低计算和存储开销。
+
+## 四大方法家族
+
+### 1. 低秩分解
+- LoRA → 注入 BA 低秩矩阵
+- DoRA → 权重分解
+- AdaLoRA → 自适应秩分配
+
+### 2. Adapter
+- Serial / Parallel Adapter
+- AdapterFusion
+
+### 3. Prompt 系列
+- Prefix Tuning, P-Tuning v2, Prompt Tuning
+
+### 4. 混合方法
+- QLoRA, IA3, UniPELT
+
+## 性能-效率对比
+
+| 方法 | 可训练参数 | 推理延迟 |
+|------|-----------|---------|
+| Full FT | 100% | 无 |
+| LoRA | <1% | 无 |
+| Adapter | 1-3% | 有 |
+| QLoRA | <1% | 无 |
+
+## 趋势
+
+1. 量化 + PEFT
+2. 自动秩分配
+3. MoE + PEFT
+4. 多模态 PEFT
+`,
+
+"synthetic-data": `---
+title: Synthetic Data for Fine-Tuning
+tags: [synthetic-data, data-curation, method]
+---
+
+# Synthetic Data
+
+## 核心理念
+
+用 LLM 生成 **人工但任务相关** 的训练样本，替代或补充真实数据。
+
+## 三大生成策略
+
+### 1. Prompt-based
+Self-Instruct, Alpaca, Evol-Instruct
+
+### 2. Retrieval-Augmented
+检索真实样本引导生成
+
+### 3. Iterative Self-Refinement
+生成 → 评判 → 修正 → 再生成
+
+## Distillation vs Self-Improvement
+
+| 方法 | 描述 | 代表 |
+|------|------|------|
+| Distillation | 强模型生成，弱模型学习 | Alpaca, WizardLM |
+| Self-Improvement | 自己生成，自己优化 | SPIN, Self-Boosting |
+
+## 三大挑战
+
+| 挑战 | 缓解策略 |
+|------|---------|
+| 事实性错误 | 过滤、人工审核 |
+| 分布偏差 | 检索增强 |
+| 偏见放大 | 对比筛选 |
+
+## Code 领域优势
+
+代码可通过执行反馈验证正确性（单元测试通过 = 正样本），这是文本领域不具备的。
+`,
+
+"preference-alignment": `---
+title: Preference Alignment (偏好对齐)
+tags: [alignment, rlhf, dpo, survey]
+---
+
+# Preference Alignment
+
+## 什么是 Alignment
+
+让 LLM 行为与人类价值观一致。核心目标：**有用、诚实、无害** (HHH)。
+
+## 对齐流水线
+
+\`\`\`
+Pretraining → SFT → Preference Alignment
+                     ├── RLHF (PPO)
+                     ├── DPO (offline)
+                     └── RLVR (GRPO)
+\`\`\`
+
+## 范式转移
+
+| 旧范式 | 新范式 |
+|--------|--------|
+| RL-based | **RL-free** (DPO, KTO, SimPO) |
+| 单任务 | **多目标** 对齐 |
+| 单一反馈 | **混合信号** |
+
+## 主要方法对比
+
+| 方法 | 类型 | 复杂度 | 稳定性 |
+|------|------|--------|--------|
+| PPO-RLHF | RL | 高 | 中 |
+| DPO | Offline | 低 | 高 |
+| KTO | Offline | 低 | 高 |
+| GRPO | RL | 中 | 中 |
+
+## 核心挑战
+
+1. 奖励 hacking
+2. 偏好数据质量
+3. 多维度权衡
+4. 评估困难
+
+## 新兴方向
+
+- Constitutional AI — 规则引导
+- Multi-turn alignment
+- Personalized alignment
+`,
+
+"rlhf-vs-dpo": `---
+title: RLHF vs DPO
+tags: [comparison, rlhf, dpo]
+---
+
+# RLHF vs DPO: 方法选择指南
+
+## 本质区别
+
+| 维度 | RLHF (PPO) | DPO |
+|------|-----------|-----|
+| 优化框架 | 强化学习 | 分类损失 |
+| 奖励模型 | **需要** | **不需要** |
+| 稳定性 | 需调参 | 开箱即用 |
+| 实现复杂度 | 高 | **低** |
+
+## 性能表现
+
+| 任务 | 胜出 |
+|------|------|
+| 情感控制 | DPO |
+| 摘要 | 持平 |
+| 单轮对话 | DPO ≥ PPO |
+| 数学/代码 | **GRPO** (RLVR) |
+
+## 选择指南
+
+**用 DPO 当：**
+- 有偏好数据集
+- 追求简单、快速迭代
+- 资源受限
+
+**用 RLHF/GRPO 当：**
+- 有可验证奖励（数学、代码）
+- 需要探索策略空间
+
+## 结论
+
+DPO 已成为默认选择，但在 DeepSeek-R1 带动下，RLVR 在推理任务中重新崛起。最佳实践：**DPO 初对齐 + RLVR 精细优化**。
+`
+};
+
+// Simple markdown to HTML
+function md2html(md) {
+  let lines = md.split('\n');
+  let html = '';
+  let inTable = false, inCode = false, inList = false, listType = '';
+
+  for (let i = 0; i < lines.length; i++) {
+    let line = lines[i];
+
+    // Skip YAML frontmatter
+    if (line.trim() === '---' && (i === 0 || (html.trim() === '' && i < 10))) {
+      while (i + 1 < lines.length && lines[i + 1].trim() !== '---') i++;
+      i++; continue;
+    }
+
+    // Code blocks
+    if (line.trim().startsWith('```')) {
+      if (inCode) { html += '</code></pre>'; inCode = false; }
+      else { html += '<pre><code>'; inCode = true; }
+      continue;
+    }
+    if (inCode) { html += line + '\n'; continue; }
+
+    // Tables
+    if (line.trim().startsWith('|') && line.trim().endsWith('|')) {
+      if (!inTable) { html += '<table>'; inTable = true; }
+      let cells = line.split('|').filter((_,j) => j > 0 && j < line.split('|').length - 1);
+      if (cells.every(c => /^[-:\s]+$/.test(c.trim()))) {
+        // Separator row, skip
+        continue;
+      }
+      let tag = (i > 0 && lines[i-1] && lines[i-1].trim().startsWith('|') &&
+                 lines[i-1].split('|').filter((_,j) => j > 0 && j < lines[i-1].split('|').length - 1)
+                 .every(c => /^[-:\s]+$/.test(c.trim()))) ? 'th' : 'td';
+      html += '<tr>' + cells.map(c => `<${tag}>${inlineMd(c.trim())}</${tag}>`).join('') + '</tr>';
+      continue;
+    } else if (inTable) {
+      html += '</table>';
+      inTable = false;
+    }
+
+    // Headings
+    if (line.match(/^#### (.+)/)) { html += `<h3>${inlineMd(RegExp.$1)}</h3>`; continue; }
+    if (line.match(/^### (.+)/)) { html += `<h3>${inlineMd(RegExp.$1)}</h3>`; continue; }
+    if (line.match(/^## (.+)/)) { html += `<h2>${inlineMd(RegExp.$1)}</h2>`; continue; }
+    if (line.match(/^# (.+)/)) { html += `<h1>${inlineMd(RegExp.$1)}</h1>`; continue; }
+
+    // Blockquote
+    if (line.match(/^> (.+)/)) { html += `<blockquote>${inlineMd(RegExp.$1)}</blockquote>`; continue; }
+
+    // HR
+    if (line.trim() === '---' || line.trim() === '***') { html += '<hr>'; continue; }
+
+    // Lists
+    if (line.match(/^(\s*)- (.+)/)) {
+      if (!inList || listType !== 'ul') { if(inList) html += `</${listType}>`; html += '<ul>'; inList = true; listType = 'ul'; }
+      html += `<li>${inlineMd(RegExp.$2)}</li>`;
+      continue;
+    }
+    if (line.match(/^(\s*)\d+\. (.+)/)) {
+      if (!inList || listType !== 'ol') { if(inList) html += `</${listType}>`; html += '<ol>'; inList = true; listType = 'ol'; }
+      html += `<li>${inlineMd(RegExp.$2)}</li>`;
+      continue;
+    }
+    if (inList && line.trim() === '') { html += `</${listType}>`; inList = false; continue; }
+
+    // Empty line
+    if (line.trim() === '') { if (inList) { html += `</${listType}>`; inList = false; } html += '<br>'; continue; }
+
+    // Paragraph
+    if (inList) { html += `</${listType}>`; inList = false; }
+    html += `<p>${inlineMd(line)}</p>`;
+  }
+  if (inTable) html += '</table>';
+  if (inList) html += `</${listType}>`;
+  return html;
+}
+
+function inlineMd(text) {
+  return text
+    .replace(/`([^`]+)`/g, '<code>$1</code>')
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank">$1</a>')
+    .replace(/\[\[([^\]]+)\]\]/g, '<span class="wikilink">$1</span>');
+}
+
+function showDetail(id) {
+  if (!contents[id]) return;
+  let panel = document.getElementById('panel');
+  let meta = contents[id].split('\n').filter(l => l.startsWith('title:') || l.startsWith('tags:'));
+
+  document.getElementById('panel-title').textContent = meta.find(l=>l.startsWith('title:'))?.replace('title:','').trim() || id;
+  let body = document.getElementById('panel-body');
+  body.innerHTML = md2html(contents[id]);
+
+  // Tags
+  let tagsRaw = meta.find(l=>l.startsWith('tags:'))?.replace('tags:','').trim() || '';
+  let tags = tagsRaw.replace(/[\[\]]/g,'').split(',').map(t=>t.trim()).filter(Boolean);
+  if (tags.length) {
+    body.innerHTML += '<div id="panel-tags">' + tags.map(t => `<span class="tag">${t}</span>`).join('') + '</div>';
+  }
+
+  panel.classList.add('show');
+}
+
+function closePanel() {
+  document.getElementById('panel').classList.remove('show');
+}
+
+// ========== D3 Graph ==========
+const data = {
+  nodes: [
+    {id:"lora", title:"LoRA", group:"concept", desc:"低秩分解微调 · 参数减少10,000× · 零推理延迟"},
+    {id:"qlora", title:"QLoRA", group:"concept", desc:"4-bit量化LoRA · 单GPU微调65B · 达ChatGPT 99.3%"},
+    {id:"dpo", title:"DPO", group:"concept", desc:"RL-free对齐 · 分类损失替代RL · 实现极简"},
+    {id:"rlhf", title:"RLHF", group:"concept", desc:"人类反馈强化学习 · PPO优化 · InstructGPT起源"},
+    {id:"instruction-tuning", title:"指令微调", group:"concept", desc:"(指令,回答)对训练 · 弥合预训练与指令跟随"},
+    {id:"peft", title:"PEFT", group:"concept", desc:"参数高效微调总览 · 四大方法家族"},
+    {id:"synthetic-data", title:"合成数据", group:"concept", desc:"LLM生成训练数据 · Distillation+Self-Improve"},
+    {id:"preference-alignment", title:"偏好对齐", group:"concept", desc:"对齐全景 · RL→RL-free · 单目标→多目标"},
+    {id:"rlhf-vs-dpo", title:"RLHF vs DPO", group:"comparison", desc:"方法选择指南 · 何时用PPO何时用DPO"},
+    {id:"full-finetuning", title:"全参数微调", group:"external", desc:"更新全部参数 · LoRA对比基准"},
+    {id:"quantization", title:"量化技术", group:"external", desc:"NF4/INT4/INT8 · QLoRA基石"},
+    {id:"grpo", title:"GRPO", group:"external", desc:"Group Relative Policy Optimization · RLVR"},
+    {id:"reward-modeling", title:"奖励模型", group:"external", desc:"偏好打分 · RLHF核心"},
+    {id:"data-curation", title:"数据筛选", group:"external", desc:"质量过滤 · 后处理"},
+  ],
+  links: [
+    {source:"lora",target:"qlora",label:"量化变体"},{source:"lora",target:"peft",label:"PEFT核心"},
+    {source:"lora",target:"full-finetuning",label:"对比"},{source:"lora",target:"dpo",label:"结合对齐"},
+    {source:"qlora",target:"peft",label:"量化+LoRA"},{source:"qlora",target:"quantization",label:"4-bit NF4"},
+    {source:"dpo",target:"rlhf",label:"替代"},{source:"dpo",target:"preference-alignment",label:"RL-free"},
+    {source:"dpo",target:"synthetic-data",label:"偏好数据"},{source:"dpo",target:"grpo",label:"RL对比"},
+    {source:"rlhf",target:"preference-alignment",label:"RL范式"},{source:"rlhf",target:"instruction-tuning",label:"后SFT"},
+    {source:"rlhf",target:"reward-modeling",label:"RM训练"},{source:"rlhf",target:"grpo",label:"演变"},
+    {source:"instruction-tuning",target:"rlhf",label:"第一步"},{source:"instruction-tuning",target:"dpo",label:"前置"},
+    {source:"instruction-tuning",target:"synthetic-data",label:"数据来源"},{source:"instruction-tuning",target:"lora",label:"高效实现"},
+    {source:"peft",target:"instruction-tuning",label:"应用"},{source:"synthetic-data",target:"data-curation",label:"后处理"},
+    {source:"preference-alignment",target:"rlhf-vs-dpo",label:"方法论"},
+    {source:"rlhf-vs-dpo",target:"dpo",label:"详析"},{source:"rlhf-vs-dpo",target:"rlhf",label:"详析"},
+  ]
+};
+
+const W=window.innerWidth, H=window.innerHeight;
+const svg=d3.select("#graph").append("svg").attr("width",W).attr("height",H);
+const g=svg.append("g");
+svg.call(d3.zoom().scaleExtent([0.3,3]).on("zoom",(e)=>g.attr("transform",e.transform)));
+
+const color=d3.scaleOrdinal().domain(["concept","comparison","external"]).range(["#58a6ff","#d29922","#8b949e"]);
+const sim=d3.forceSimulation(data.nodes).force("link",d3.forceLink(data.links).id(d=>d.id).distance(140))
+  .force("charge",d3.forceManyBody().strength(-400)).force("center",d3.forceCenter(W/2,H/2)).force("collide",d3.forceCollide(50));
+
+const tooltip=d3.select("#tooltip");
+
+g.append("defs").selectAll("marker").data(["concept","comparison","external"])
+  .join("marker").attr("id",d=>"arrow-"+d).attr("viewBox","0 -5 10 10").attr("refX",22).attr("refY",0)
+  .attr("markerWidth",6).attr("markerHeight",6).attr("orient","auto")
+  .append("path").attr("d","M0,-5L10,0L0,5").attr("fill",d=>color(d)).attr("opacity",0.6);
+
+const link=g.append("g").selectAll("line").data(data.links).join("line")
+  .attr("stroke","#30363d").attr("stroke-width",1.5)
+  .attr("marker-end",d=>`url(#arrow-${data.nodes.find(n=>n.id===d.target.id)?.group||"concept"})`);
+
+const linkLabel=g.append("g").selectAll("text").data(data.links).join("text")
+  .text(d=>d.label).attr("font-size",9).attr("fill","#484f58").attr("text-anchor","middle").attr("dy",-6);
+
+const node=g.append("g").selectAll("g").data(data.nodes).join("g")
+  .call(d3.drag().on("start",(e,d)=>{if(!e.active)sim.alphaTarget(0.3).restart();d.fx=d.x;d.fy=d.y})
+    .on("drag",(e,d)=>{d.fx=e.x;d.fy=e.y}).on("end",(e,d)=>{if(!e.active)sim.alphaTarget(0);d.fx=null;d.fy=null}));
+
+node.append("circle").attr("r",d=>d.group==="concept"?16:d.group==="comparison"?14:10)
+  .attr("fill",d=>color(d.group)).attr("stroke","#0d1117").attr("stroke-width",2)
+  .on("click",function(e,d){showDetail(d.id);e.stopPropagation()})
+  .on("mouseover",function(e,d){
+    d3.select(this).transition().duration(200).attr("r",d.group==="concept"?22:d.group==="comparison"?19:14);
+    link.attr("stroke",l=>l.source.id===d.id||l.target.id===d.id?"#58a6ff":"#30363d")
+      .attr("stroke-width",l=>l.source.id===d.id||l.target.id===d.id?2.5:1.5);
+    node.select("circle").attr("opacity",n=>{
+      if(n.id===d.id)return 1;
+      return data.links.some(l=>(l.source.id===d.id&&l.target.id===n.id)||(l.target.id===d.id&&l.source.id===n.id))?0.7:0.2;
+    });
+    tooltip.style("display","block").html(`<b>${d.title}</b><br><span style="color:#8b949e">${d.desc}</span>`);
+  })
+  .on("mousemove",e=>{tooltip.style("left",(e.pageX+12)+"px").style("top",(e.pageY-40)+"px")})
+  .on("mouseout",function(){
+    d3.select(this).transition().duration(200).attr("r",d=>d.group==="concept"?16:d.group==="comparison"?14:10);
+    link.attr("stroke","#30363d").attr("stroke-width",1.5);
+    node.select("circle").attr("opacity",1);
+    tooltip.style("display","none");
+  });
+
+node.append("text").text(d=>d.title).attr("dy",d=>d.group==="concept"?28:d.group==="comparison"?24:20)
+  .attr("text-anchor","middle").attr("fill","#c9d1d9").attr("font-size",d=>d.group==="concept"?11:d.group==="comparison"?10:9);
+
+svg.on("click",()=>closePanel());
+
+sim.on("tick",()=>{
+  link.attr("x1",d=>d.source.x).attr("y1",d=>d.source.y).attr("x2",d=>d.target.x).attr("y2",d=>d.target.y);
+  linkLabel.attr("x",d=>(d.source.x+d.target.x)/2).attr("y",d=>(d.source.y+d.target.y)/2);
+  node.attr("transform",d=>`translate(${d.x},${d.y})`);
+});
+</script>
+</body>
+</html>
