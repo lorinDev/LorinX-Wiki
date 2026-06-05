@@ -44,6 +44,26 @@ body{font-family:-apple-system,'Microsoft YaHei',sans-serif;background:#0d1117;c
 #panel-body hr{border:none;border-top:1px solid #21262d;margin:16px 0}
 #panel-tags{margin-top:12px;display:flex;flex-wrap:wrap;gap:6px}
 .tag{background:rgba(88,166,255,.12);color:#58a6ff;padding:2px 8px;border-radius:10px;font-size:11px}
+@media(max-width:768px){
+  #info{top:8px;left:8px;right:8px;max-width:none;padding:8px 12px;font-size:11px;border-radius:6px}
+  #info h1{font-size:13px}
+  #info p{font-size:10px}
+  #legend{bottom:8px;left:8px;right:8px;padding:8px 10px;font-size:10px;gap:8px;overflow-x:auto;white-space:nowrap;flex-wrap:nowrap}
+  .leg span{width:8px;height:8px}
+  #panel{width:100vw;box-shadow:none;border-left:none}
+  #panel-header{padding:12px 16px}
+  #panel-header h2{font-size:15px}
+  #panel-close{width:36px;height:36px;font-size:20px;border-radius:8px}
+  #panel-body{padding:14px}
+  #panel-body h1{font-size:18px}
+  #panel-body h2{font-size:15px}
+  #panel-body h3{font-size:13px}
+  #panel-body p,#panel-body li{font-size:13px;line-height:1.8}
+  #panel-body table{font-size:11px;display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  #panel-body th,#panel-body td{padding:4px 6px}
+  #panel-body blockquote{font-size:13px}
+  .tooltip{font-size:11px;padding:6px 10px}
+}
 </style>
 </head>
 <body>
